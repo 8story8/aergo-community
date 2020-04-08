@@ -1,0 +1,5 @@
+rootProject.name = 'aergo-community'
+include 'aergo-community-assembly'
+include 'aergo-community-core'
+include 'aergo-community-api'
+include 'aergo-community-front'

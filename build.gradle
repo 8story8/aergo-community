@@ -1,0 +1,38 @@
+allprojects {
+  group = group
+  version = version
+}
+
+def backendProjects = [project('aergo-community-api'), project('aergo-community-core')]
+
+subprojects {
+  apply plugin: 'java'
+  apply plugin: 'eclipse'
+  apply plugin: 'idea'
+  
+  sourceCompatibility = sourceJavaVersion
+  targetCompatibility = targetJavaVersion
+  
+  repositories {
+    mavenCentral()
+  }
+}
+
+configure(backendProjects) {
+  
+  dependencies {
+    implementation "org.projectlombok:lombok:${lombokVersion}"
+    implementationAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    
+    testImplementation "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    
+    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    runtimeOnly "ch.qos.logback:logback-classic:${logbackVersion}"
+    
+    implementation group: 'io.springfox', name: 'springfox-swagger2', version: "${swaggerVersion}"
+    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: "${swaggerVersion}"
+  } 
+}
+
+

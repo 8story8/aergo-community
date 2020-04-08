@@ -1,0 +1,6 @@
+dependencies {
+  implementation project(":aergo-community-core")
+  implementation project(":aergo-community-front")
+  implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+  implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
+}
