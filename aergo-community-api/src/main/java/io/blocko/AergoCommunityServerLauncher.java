@@ -1,4 +1,4 @@
-package io.saiden;
+package io.blocko;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

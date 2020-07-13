@@ -1,4 +1,4 @@
-package io.saiden.config;
+package io.blocko.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;

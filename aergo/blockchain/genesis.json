@@ -1,0 +1,17 @@
+{
+    "chain_id":{
+        "magic": "aergo-community",
+        "public": false,
+        "mainnet": false,
+        "coinbasefee":"0",
+        "consensus": "dpos"
+    },
+    "timestamp": 1548918000000000000,
+    "balance": {
+        "AmNkvHXerX73woHBvTffGtj6it5HxW5iQt6tvz7sZZ9QYAs8bHr5": "470000000000000000000000000",
+        "AmMDAruCJQdP74HTVdYs21MXijQYUE45QKCpQRhtgj8PK81kki2B": "20000000000000000000000000"
+    },
+    "bps": [
+        "16Uiu2HAmEFLXfdMAE93xCNUjVBjTzoG95hoZzogLimBCt9Sb4LJ4"
+    ]
+}
