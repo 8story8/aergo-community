@@ -3,8 +3,8 @@
         "magic": "aergo-community",
         "public": false,
         "mainnet": false,
-        "coinbasefee":"0",
-        "consensus": "dpos"
+        "consensus": "dpos",
+        "version":2
     },
     "timestamp": 1548918000000000000,
     "balance": {
@@ -12,6 +12,6 @@
         "AmMDAruCJQdP74HTVdYs21MXijQYUE45QKCpQRhtgj8PK81kki2B": "20000000000000000000000000"
     },
     "bps": [
-        "16Uiu2HAmEFLXfdMAE93xCNUjVBjTzoG95hoZzogLimBCt9Sb4LJ4"
+        "16Uiu2HAmLe5fj9tZFcsRRz15jbGTWTzLSpBBS7VUwpH5rFNqtKAb"
     ]
 }
