@@ -63,15 +63,15 @@ function query_begin(sql, ...)
 
     return {colcnt=colcnt, rowcnt=#r, rows=r, colmetas=colmetas, snapshot=db.getsnap()}
 end
-	
+
 function query_next(snap, sql, ...)
 	db.open_with_snapshot(snap)
 	local rs = db.query(sql, ...)
 	local r = {}
 	local colcnt = rs:colcnt()
-	while rs:next() do 
+	while rs:next() do
 		local k = {rs:get()}
-		for i = 1, colcnt do 
+		for i = 1, colcnt do
 			if k[i] == nil then
 				k[i] = {}
 			end
@@ -88,10 +88,6 @@ end
 function getmeta(sql)
 	local stmt = db.prepare(sql)
 	return {colmetas=stmt:column_info(), bindcnt=stmt:bind_param_cnt()}
-end
-
-function constructor()
-	db.exec("create table sample(num int, data text)")
 end
 
 abi.register(exec, batch_exec, batchsql_exec)

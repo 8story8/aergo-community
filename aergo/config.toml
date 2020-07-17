@@ -1,22 +1,19 @@
 # base configurations
-datadir = ".aergo/data"
+datadir = "./blockchain/data"
 enableprofile = false
 profileport = 6060
 enablerest = false
 enabletestmode = false
-authdir = ".aergo/auth"
+authdir = "./blockchain/auth"
 
 [rpc]
-netserviceaddr = "127.0.0.1"
+netserviceaddr = "0.0.0.0"
 netserviceport = 7845
 nstls = false
 nscacert = ""
 nscert = ""
 nskey = ""
 nsallowcors = false
-
-[rest]
-restport = "8080"
 
 [p2p]
 # Set address and port to which the inbound peers connect, and don't set loopback address or private network unless used in local network 
@@ -25,7 +22,7 @@ netprotocolport = 7846
 npbindaddr = ""
 npbindport = -1 
 # Set file path of key file
-npkey = ""
+npkey = "./blockchain/server.key"
 npaddpeers = [
 ]
 nphiddenpeers = [
@@ -40,10 +37,11 @@ npaddpolarises = [
 [blockchain]
 # blockchain configurations
 maxblocksize = 1048576
+coinbaseaccount = "AmM1orjH3NMoZPzGSXtTFTZrMd9q821ZDeHvGEWfdRKV5c77bvEb"
 
 [mempool]
 showmetrics = false
-dumpfilepath = ".aergo/mempool.dump"
+dumpfilepath = "./blockchain/mempool.dump"
 
 [consensus]
 enablebp = true
