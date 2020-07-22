@@ -3,16 +3,15 @@
         "magic":"aergo-community",
         "public":false,
         "mainnet":false,
-        "coinbasefee":"0",
         "consensus":"dpos"
     },
     "timestamp": 1559883600000000000,
     "balance": {
         "AmNo9Mq1P9rivKQZD3CBKBbEueNWv75oGq7Nf6ijSvVcKp1EsCvn": "100000000000000000000000000",
-        "AmM1orjH3NMoZPzGSXtTFTZrMd9q821ZDeHvGEWfdRKV5c77bvEb": "100000000000000000000000000",
+        "AmQFVPEqQUGTX7DAD5maWVJ1zFg36gHKi44tz8NbVQFtC5HYVTbg": "100000000000000000000000000",
         "AmMDAruCJQdP74HTVdYs21MXijQYUE45QKCpQRhtgj8PK81kki2B": "100000000000000000000000000"
     },
     "bps": [
-        "16Uiu2HAmK5a12ad4my3ubpZ1sog8vM3c6V8MVpBGi3t8B9mgpvxA"
+       "16Uiu2HAkyKtqpusqRxhGtmabcmdnpQuqW5sg64WNq7kTUPsRYvp3"
     ]
 }

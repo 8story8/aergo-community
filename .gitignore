@@ -6,4 +6,6 @@ build/
 bin/
 .DS_Store
 aergo/blockchain/data
+aergo/blockchain/auth
 aergo/blockchain/mempool.dump
+aergo/blockchain/contract

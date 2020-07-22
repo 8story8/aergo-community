@@ -9,15 +9,23 @@ function remove_aergo_data {
   if [ -d $AERGO_DATA ]; then
     rm -rf $AERGO_DATA
   fi
+  AERGO_AUTH=$SCRIPT_HOME/blockchain/auth
+  if [ -d $AERGO_AUTH ]; then
+    rm -rf $AERGO_AUTH
+  fi
   AERGO_MEMPOOL_DUMP=$SCRIPT_HOME/blockchain/mempool.dump
   if [ -f $AERGO_MEMPOOL_DUMP ]; then
     rm -rf $AERGO_MEMPOOL_DUMP
   fi
+  AERGO_CONTRACT=$SCRIPT_HOME/contract
+  if [ -d $AERGO_CONTRACT ]; then
+    rm -rf $AERGO_CONTRACT
+  fi
 }
 
 function init_aergo {
-  docker run --rm -v $SCRIPT_HOME:/aergo aergo/node:2.2.3 aergosvr init --genesis /aergo/blockchain/genesis.json --home /aergo
-  docker create --name aergo -p 7845:7845 -v $SCRIPT_HOME:/aergo aergo/node:2.2.3 aergosvr --home /aergo --config /aergo/config.toml
+  docker run --rm -v $SCRIPT_HOME:/aergo aergo/node:2.2.3 aergosvr init --genesis /aergo/blockchain/genesis.json --home /aergo --config /aergo/config.toml
+  docker create --name aergo -p 7845:7845 -p 7846:7846 -v $SCRIPT_HOME:/aergo aergo/node:2.2.3 aergosvr --home /aergo --config /aergo/config.toml
   docker start aergo
 }
 

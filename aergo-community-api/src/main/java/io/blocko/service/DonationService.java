@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import io.blocko.repository.DonationRepository;
 
 @Service
-public class CommentService {
+public class DonationService {
 
 	@Autowired
-	private DonationRepository commentRepository;
+	private DonationRepository donationRepository;
 }

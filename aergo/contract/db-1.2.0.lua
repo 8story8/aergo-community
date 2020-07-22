@@ -90,5 +90,9 @@ function getmeta(sql)
 	return {colmetas=stmt:column_info(), bindcnt=stmt:bind_param_cnt()}
 end
 
+function constructor()
+	db.exec("create table sample(num int, data text)")
+end
+
 abi.register(exec, batch_exec, batchsql_exec)
 abi.register_view(version, query_begin, query_next, getmeta)

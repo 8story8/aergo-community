@@ -37,7 +37,6 @@ npaddpolarises = [
 [blockchain]
 # blockchain configurations
 maxblocksize = 1048576
-coinbaseaccount = "AmM1orjH3NMoZPzGSXtTFTZrMd9q821ZDeHvGEWfdRKV5c77bvEb"
 
 [mempool]
 showmetrics = false

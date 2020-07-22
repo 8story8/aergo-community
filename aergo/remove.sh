@@ -9,9 +9,17 @@ function remove_aergo_data {
   if [ -d $AERGO_DATA ]; then
     rm -rf $AERGO_DATA
   fi
+  AERGO_AUTH=$SCRIPT_HOME/blockchain/auth
+  if [ -d $AERGO_AUTH ]; then
+    rm -rf $AERGO_AUTH
+  fi
   AERGO_MEMPOOL_DUMP=$SCRIPT_HOME/blockchain/mempool.dump
   if [ -f $AERGO_MEMPOOL_DUMP ]; then
     rm -rf $AERGO_MEMPOOL_DUMP
+  fi
+  AERGO_CONTRACT=$SCRIPT_HOME/contract
+  if [ -d $AERGO_CONTRACT ]; then
+    rm -rf $AERGO_CONTRACT
   fi
 }
 
