@@ -3,8 +3,7 @@
         "magic":"aergo-community",
         "public":false,
         "mainnet":false,
-        "consensus":"dpos",
-        "coinbasefee": "0"
+        "consensus":"dpos"
     },
     "timestamp": 1559883600000000000,
     "balance": {
