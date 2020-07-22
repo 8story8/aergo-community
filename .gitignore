@@ -8,4 +8,4 @@ bin/
 aergo/blockchain/data
 aergo/blockchain/auth
 aergo/blockchain/mempool.dump
-aergo/blockchain/contract
+aergo/contract
