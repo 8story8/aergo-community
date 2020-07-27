@@ -3,11 +3,11 @@ package io.blocko.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.blocko.repository.DonationRepository;
+import io.blocko.repository.CommentRepository;
 
 @Service
-public class DonationService {
+public class CommentService {
 
 	@Autowired
-	private DonationRepository donationRepository;
+	private CommentRepository commentRepository;
 }

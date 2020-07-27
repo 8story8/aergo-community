@@ -1,7 +1,34 @@
 server:
   port: 8080
 
+aergo:
+  endpoint: localhost:7845
+  address: AmMDAruCJQdP74HTVdYs21MXijQYUE45QKCpQRhtgj8PK81kki2B
+  password: jdbc
+  keystore: /Users/8story8/workspace/git/aergo-community/aergo/blockchain/jdbc
+  contract:
+    address: Amg838Z7SnrfujoB8w3ciJD1v543Xw2xErHajS5wfVRf9fGBNpQZ
+  
 spring:
+  datasource:
+    url: jdbc:aergo:${aergo.endpoint}@${aergo.contract.address}
+    username: ${aergo.address}
+    password: ${aergo.password}
+    driver-class-name: org.aergojdbc.JDBC
+    hikari: 
+      data-source-properties:
+        keystore: ${aergo.keystore}
+        # nonce_norefresh: 1
+        # timeout: 1000
+  jpa:
+    show-sql: true
+    hibernate:
+      database-platform: org.hibernate.dialect.SQLiteDialect
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+     
   thymeleaf:
     prefix: classpath:/template/
     cache: false

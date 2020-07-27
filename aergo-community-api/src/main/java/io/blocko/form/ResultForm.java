@@ -1,8 +1,8 @@
 package io.blocko.form;
 
 public class ResultForm {
-
-	private Integer code;
+	
+	private Object data;
 	
 	private String msg;
 	

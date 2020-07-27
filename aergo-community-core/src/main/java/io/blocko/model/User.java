@@ -8,7 +8,13 @@ import javax.persistence.Id;
 public class User {
 
 	@Id
-	private String id;
+	private Long id;
+	
+	@Column
+	private String email;
+	
+	@Column
+	private String name;
 	
 	@Column
 	private String password;

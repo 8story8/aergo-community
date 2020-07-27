@@ -1,26 +1,26 @@
 package io.blocko.model;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class Wallet {
-
+public class Comment {
 	@Id
 	private Long id;
-	
+
 	@Column
-	private String address;
-	
-	@Column
-	private BigDecimal amount;
-	
+	private String content;
+
 	@Column
 	private String createdDate;
-	
+
 	@Column
 	private String updatedDate;
+
+	@ManyToOne
+	@JoinColumn(name = "boardId", referencedColumnName = "id")
+	private Board board;
 }

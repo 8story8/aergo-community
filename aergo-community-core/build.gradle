@@ -1,5 +1,5 @@
 dependencies {
   implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
   implementation "com.github.gwenn:sqlite-dialect:${sqliteDialectVersion}"
-  implementation files('lib/aergo-jdbc-1.2.0.jar')
+  implementation files("lib/aergojdbc-1.2.0.jar")
 }
