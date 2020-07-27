@@ -33,3 +33,5 @@ spring:
     prefix: classpath:/template/
     cache: false
     mode: HTML
+    
+    # 47or6RVbxkFbs6vAvWdD7zF5SxpqbkF9R5oKffVP9vKFsf2PwNfNnfTa66jrBFk3wqHHTKpkq
