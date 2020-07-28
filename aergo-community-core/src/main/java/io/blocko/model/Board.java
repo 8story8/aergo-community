@@ -28,6 +28,9 @@ public class Board {
 	@Column
 	private String updatedDate;
 	
+	@Column
+	private Integer viewCount;
+	
 	@ManyToOne
 	@JoinColumn(name = "userId", referencedColumnName = "id")
 	private User user;

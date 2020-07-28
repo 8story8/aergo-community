@@ -3,6 +3,7 @@ dependencies {
   implementation project(":aergo-community-front")
   implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
   implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
+  implementation "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
   implementation group: 'io.springfox', name: 'springfox-swagger2', version: "${swaggerVersion}"
   implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: "${swaggerVersion}"
 }
