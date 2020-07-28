@@ -29,7 +29,6 @@ public class HomeController {
 		return modelAndView;
 	}
 	
-	
 	@PostMapping("/logout")
 	public ModelAndView logout() {
 		final ModelAndView modelAndView = new ModelAndView();
