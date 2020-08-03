@@ -8,5 +8,7 @@ import io.blocko.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long>{
 	
-	Optional<User> findOneByEmail(final String email);
+	Optional<User> findOneByEmail(String email);
+	
+	boolean existsByEmail(String email);
 }

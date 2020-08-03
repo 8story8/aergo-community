@@ -10,10 +10,12 @@ import lombok.NoArgsConstructor;
 public class ResultForm {
 
 	private Object data;
+	
+	private Integer code;
 
-	private boolean status;
+	private Boolean status;
 
-	public static ResultForm of(Object data, boolean status) {
-		return new ResultForm(data, status);
+	public static ResultForm of(Object data, Integer code, Boolean status) {
+		return new ResultForm(data, code, status);
 	}
 }

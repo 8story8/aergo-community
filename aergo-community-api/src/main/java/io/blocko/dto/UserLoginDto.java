@@ -1,15 +1,21 @@
 package io.blocko.dto;
 
-import lombok.AllArgsConstructor;
+import com.sun.istack.NotNull;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
+@Setter
+@ToString
 public class UserLoginDto {
 
+	@NotNull
 	private String email;
 	
+	@NotNull
 	private String password;
 }
