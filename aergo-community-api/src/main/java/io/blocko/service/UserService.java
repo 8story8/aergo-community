@@ -13,15 +13,21 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import io.blocko.dto.UserRegistrationDto;
 import io.blocko.exception.UserDuplicationException;
+import io.blocko.exception.UserPasswordNotEqualsException;
+import io.blocko.model.SimpleUser;
 import io.blocko.repository.UserRepository;
 
 @Service
 @Transactional
 public class UserService implements UserDetailsService {
+
+	@Autowired
+	protected PasswordEncoder passwordEncoder;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -33,22 +39,26 @@ public class UserService implements UserDetailsService {
 				.orElseThrow(() -> new UsernameNotFoundException(email));
 	}
 
-	public Optional<io.blocko.model.User> getLoginUser() {
+	public Optional<SimpleUser> getLoginUser() {
 		return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
 				.map(Authentication::getPrincipal).filter(o -> o instanceof UserDetails).map(o -> (UserDetails) o)
 				.map(o -> userRepository.findOneByEmail(o.getUsername()).orElse(null));
 	}
 
-	public io.blocko.model.User register(UserRegistrationDto registrationDto) {
+	public SimpleUser register(UserRegistrationDto registrationDto) {
 		final String email = registrationDto.getEmail();
 		final String password = registrationDto.getPassword();
 		final String name = registrationDto.getName();
 
+		if(!password.equals(registrationDto.getConfirmedPassword())){
+			throw new UserPasswordNotEqualsException("비밀번호가 일치하지 않습니다.");
+		}
+		
 		if (userRepository.existsByEmail(email)) {
 			throw new UserDuplicationException(email);
 		}
 
-		io.blocko.model.User user = userRepository.save(new io.blocko.model.User(email, password, name));
+		final SimpleUser user = userRepository.save(new SimpleUser(email, passwordEncoder.encode(password), name));
 		return user;
 	}
 }

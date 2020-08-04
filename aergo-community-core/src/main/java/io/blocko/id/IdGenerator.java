@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 
 import io.blocko.model.Board;
 import io.blocko.model.Comment;
-import io.blocko.model.User;
+import io.blocko.model.SimpleUser;
 
 public class IdGenerator implements IdentifierGenerator {
 
@@ -41,7 +41,7 @@ public class IdGenerator implements IdentifierGenerator {
 	}
 	
 	private String getSql(Object object) {
-		if(object instanceof User) {
+		if(object instanceof SimpleUser) {
 			return "select max(id) from user";
 		}else if(object instanceof Board) {
 			return "select max(id) from board";

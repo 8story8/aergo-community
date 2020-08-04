@@ -1,30 +1,28 @@
 package io.blocko.dto;
 
 import javax.validation.constraints.Email;
-
-import com.sun.istack.NotNull;
+import javax.validation.constraints.NotBlank;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 public class UserRegistrationDto {
 
 	@Email
+	@NotBlank
 	private String email;
 	
-	@NotNull
+	@NotBlank
 	private String password;
 	
-	@NotNull
+	@NotBlank
 	private String confirmedPassword;
 	
-	@NotNull
+	@NotBlank
 	private String name;
 	
 }

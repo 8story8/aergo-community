@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "user")
 @NoArgsConstructor
 @Getter
-public class User {
+public class SimpleUser {
 
 	@Id
 	@GenericGenerator(name="id_generator", strategy="io.blocko.id.IdGenerator")
@@ -37,7 +37,7 @@ public class User {
 	@Column
 	private String updatedDate;
 	
-	public User(String email, String password, String name) {
+	public SimpleUser(String email, String password, String name) {
 		this.email = email;
 		this.password = password;
 		this.name = name;

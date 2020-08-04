@@ -4,11 +4,11 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import io.blocko.model.User;
+import io.blocko.model.SimpleUser;
 
-public interface UserRepository extends JpaRepository<User, Long>{
+public interface UserRepository extends JpaRepository<SimpleUser, Long>{
 	
-	Optional<User> findOneByEmail(String email);
+	Optional<SimpleUser> findOneByEmail(String email);
 	
 	boolean existsByEmail(String email);
 }

@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import io.blocko.dto.UserLoginDto;
 import io.blocko.dto.UserRegistrationDto;
 import io.blocko.form.ResultForm;
-import io.blocko.model.User;
+import io.blocko.model.SimpleUser;
 import io.blocko.service.UserService;
 
 @Controller
@@ -25,7 +25,7 @@ public class UserController {
 	private UserService userService;
 
 	@PostMapping("/login")
-	public String login(@ModelAttribute final UserLoginDto loginDto) {
+	public String login(@ModelAttribute UserLoginDto loginDto) {
 		return "redirect:/";
 	}
 	
@@ -37,15 +37,14 @@ public class UserController {
 	@GetMapping("/register") 
 	public ModelAndView registrationPage() {
 		final ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("registrationDto", new UserRegistrationDto());
 		modelAndView.setViewName("community/register");
 		return modelAndView;
 	}
 	
 	@PostMapping("/register")
 	@ResponseBody
-	public ResultForm register(@Valid @ModelAttribute UserRegistrationDto registrationDto){
-		final User user = userService.register(registrationDto);
-		return ResultForm.of(user, 100, true);
+	public ResultForm register(@Valid UserRegistrationDto registrationDto){
+		final SimpleUser user = userService.register(registrationDto);
+		return ResultForm.of(user.getEmail() + " 가입 성공", 200, true);
 	}
 }

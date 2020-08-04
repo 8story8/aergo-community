@@ -38,5 +38,5 @@ public class Board {
 	
 	@ManyToOne
 	@JoinColumn(name = "userId", referencedColumnName = "id")
-	private User user;
+	private SimpleUser user;
 }

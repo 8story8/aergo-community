@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -28,41 +28,41 @@
 								</h3>
 							</div>
 							<div class="card-body">
-								<form th:action="@{/user/register}" th:method="post"
-									th:object="${registrationDto}">
+								<form id = "register_user_form" th:action="@{/user/register}" th:method="post">
 									<div class="form-group">
 										<label class="small mb-1">이메일</label> <input
-											class="form-control py-4" th:field="*{email}" type="email"
+											class="form-control py-4" name="email" type="email"
 											placeholder="이메일을 입력하세요." />
 									</div>
 									<div class="form-row">
 										<div class="col-md-6">
 											<div class="form-group">
 												<label class="small mb-1">비밀번호</label> <input
-													class="form-control py-4" th:field="*{password}" type="password"
-													placeholder="비밀번호를 입력하세요." />
+													class="form-control py-4" name="password"
+													type="password" placeholder="비밀번호를 입력하세요." />
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
 												<label class="small mb-1">비밀번호 확인</label> <input
-													class="form-control py-4" th:field="*{confirmedPassword}"
+													class="form-control py-4" name="confirmedPassword"
 													type="password" placeholder="입력하신 비밀번호를 재입력하세요." />
 											</div>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="small mb-1">이름</label> <input
-											class="form-control py-4" th:field="*{name}" type="text"
+											class="form-control py-4" name="name" type="text"
 											placeholder="이름을 입력하세요." />
 									</div>
 									<div class="form-group mt-4 mb-0">
-										<input type="submit" class="btn btn-warning btn-block"
-											value="가입하기" />
+										<input type="button" class="btn btn-warning btn-block"
+											value="가입하기" onclick="register_user()">
+										</button>
 									</div>
 								</form>
 								<div class="form-group mt-4 mb-0">
-									<a class="btn btn-warning btn-block" href="/login">홈으로</a>
+									<a class="btn btn-warning btn-block" href="/">홈으로</a>
 								</div>
 							</div>
 							<div class="card-footer text-center">
@@ -95,5 +95,6 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
 		crossorigin="anonymous"></script>
 	<script src="/template/js/scripts.js"></script>
+	<script src="/js/register_user.js"></script>
 </body>
 </html>
