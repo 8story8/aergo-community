@@ -1,13 +1,10 @@
 package io.blocko.exception;
 
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor
 public class UserPasswordNotEqualsException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 	
-	public UserPasswordNotEqualsException(String msg) {
-		super(msg);
+	public UserPasswordNotEqualsException() {
+		super("비밀번호가 일치하지 않습니다.");
 	}
 }

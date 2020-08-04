@@ -42,7 +42,7 @@ public class UserService implements UserDetailsService {
 	public Optional<SimpleUser> getLoginUser() {
 		return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
 				.map(Authentication::getPrincipal).filter(o -> o instanceof UserDetails).map(o -> (UserDetails) o)
-				.map(o -> userRepository.findOneByEmail(o.getUsername()).orElse(null));
+				.map(o -> userRepository.findOneByEmail(o.getUsername()).orElseThrow(() -> new UsernameNotFoundException(o.getUsername())));
 	}
 
 	public SimpleUser register(UserRegistrationDto registrationDto) {
@@ -50,10 +50,10 @@ public class UserService implements UserDetailsService {
 		final String password = registrationDto.getPassword();
 		final String name = registrationDto.getName();
 
-		if(!password.equals(registrationDto.getConfirmedPassword())){
-			throw new UserPasswordNotEqualsException("비밀번호가 일치하지 않습니다.");
+		if (!password.equals(registrationDto.getConfirmedPassword())) {
+			throw new UserPasswordNotEqualsException();
 		}
-		
+
 		if (userRepository.existsByEmail(email)) {
 			throw new UserDuplicationException(email);
 		}
@@ -61,4 +61,6 @@ public class UserService implements UserDetailsService {
 		final SimpleUser user = userRepository.save(new SimpleUser(email, passwordEncoder.encode(password), name));
 		return user;
 	}
+
+
 }

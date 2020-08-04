@@ -1,5 +1,7 @@
 package io.blocko.dto;
 
+import javax.validation.constraints.Email;
+
 import com.sun.istack.NotNull;
 
 import lombok.Getter;
@@ -13,6 +15,7 @@ import lombok.ToString;
 @ToString
 public class UserLoginDto {
 
+	@Email
 	@NotNull
 	private String email;
 	

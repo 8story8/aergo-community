@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -8,7 +8,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Page Title - SB Admin</title>
+<title>Aergo Community</title>
 <link href="template/css/styles.css" rel="stylesheet" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
@@ -27,8 +27,7 @@
 									Community</h3>
 							</div>
 							<div class="card-body">
-								<form th:action="@{/user/login}" method="post"
-									th:object=${userLoginDto}>
+								<form th:action="@{/user/login}" method="post">
 									<div class="form-group">
 										<label class="small mb-1">이메일</label> <input
 											class="form-control py-4" name="email" type="email"
@@ -49,7 +48,10 @@
 								</div>
 							</div>
 							<div class="card-footer text-center">
-								<div class="small"></div>
+								<span th:if="${param.error}" class="alert alert-error">
+									Invalid username and password.</span>
+								<span th:if="${param.logout}" class="alert alert-success">
+									You have been logged out.</span>
 							</div>
 						</div>
 					</div>

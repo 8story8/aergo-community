@@ -14,7 +14,6 @@ import org.hibernate.id.IdentifierGenerator;
 import org.slf4j.Logger;
 
 import io.blocko.model.Board;
-import io.blocko.model.Comment;
 import io.blocko.model.SimpleUser;
 
 public class IdGenerator implements IdentifierGenerator {
@@ -45,8 +44,6 @@ public class IdGenerator implements IdentifierGenerator {
 			return "select max(id) from user";
 		}else if(object instanceof Board) {
 			return "select max(id) from board";
-		}else if(object instanceof Comment) {
-			return "select max(id) from comment";
 		}else {
 			return null;
 		}
