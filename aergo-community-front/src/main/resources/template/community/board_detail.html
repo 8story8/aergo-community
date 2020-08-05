@@ -2,6 +2,7 @@
 <html>
 <head>
 <th:block th:replace="/layout/header"></th:block>
+<script src="/js/board_detail.js"></script>
 </head>
 <body>
 	<th:block th:replace="/layout/nav"></th:block>
@@ -11,36 +12,22 @@
 			<div class="container-fluid">
 				<div class="card mb-4">
 					<div class="card-body">
-						<form id="register_board_form" th:action="@{/board/register}"
-							th:method="post">
-							<div class="form-group">
-								<label class="small mb-1">제목</label> <input
-									class="form-control py-4" name="title" type="text"
-									placeholder="제목을 입력하세요." />
-							</div>
-							<div class="form-group">
-								<label class="small mb-1">내용</label>
-								<textarea class="form-control py-4" name="content"
-									type="textarea" placeholder="내용을 입력하세요."></textarea>
-							</div>
-							<div class="form-group">
-								<label class="small mb-1">파일</label> <input type="file"
-									class="btn btn-block" value="파일" />
-							</div>
 
-							<div class="form-group mt-4 mb-0">
-								<input type="button" class="btn btn-warning btn-block"
-									value="글쓰기" onclick="register_board()" /> <a
-									class="btn btn-warning btn-block" href="/">취소</a>
-							</div>
-						</form>
+						<div>제목 이름 작성일 조회수</div>
+						<div>내용</div>
+						<div>파일 다운로드</div>
+						<div>
+							<a class="btn btn-warning btn-block" href="/board/update">수정하기</a>
+									<input type="button" class="btn btn-warning btn-block"
+									value="삭제하기" th:onclick="deleteBoardById([[${board.id}]])" />
+							<a class="btn btn-warning btn-block" href="/main">홈으로</a>
+						</div>
 					</div>
 				</div>
 			</div>
 			</main>
 			<th:block th:replace="/layout/footer"></th:block>
 		</div>
-
 	</div>
 </body>
 </html>

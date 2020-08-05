@@ -1,23 +1,22 @@
 package io.blocko.model;
 
-import java.sql.Blob;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @NoArgsConstructor
 @Getter
+@Setter
 public class Board {
 
 	@Id
@@ -32,6 +31,9 @@ public class Board {
 	private String content;
 	
 	@Column
+	private String filePath;
+	
+	@Column
 	private String createdDate;
 	
 	@Column
@@ -44,9 +46,10 @@ public class Board {
 	@JoinColumn(name = "userId", referencedColumnName = "id")
 	private SimpleUser user;
 	
-	public Board(String title, String content, SimpleUser user) {
+	public Board(String title, String content, String filePath, SimpleUser user) {
 		this.title = title;
 		this.content = content;
+		this.filePath = filePath;
 		this.viewCount = 0;
 		this.user = user;
 	}

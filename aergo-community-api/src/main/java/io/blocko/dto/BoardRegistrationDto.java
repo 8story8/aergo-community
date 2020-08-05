@@ -1,8 +1,8 @@
 package io.blocko.dto;
 
-import java.sql.Blob;
-
 import javax.validation.constraints.NotBlank;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,5 +21,5 @@ public class BoardRegistrationDto {
 	@NotBlank
 	private String content;
 	
-	private Blob file;
+	private MultipartFile file;
 }

@@ -2,6 +2,7 @@
 <html>
 <head>
 <th:block th:replace="/layout/header"></th:block>
+<script src="/js/main.js"></script>
 </head>
 <body>
 	<th:block th:replace="/layout/nav"></th:block>
@@ -13,7 +14,7 @@
 				<div class="card mb-4">
 					<div class="card-body">
 						<div class="table-responsive">
-							<table class="table table-bordered" width="100%" cellspacing="0">
+							<table class="table table-bordered table-hover" width="100%" cellspacing="0">
 								<thead>
 									<tr>
 										<th>번호</th>
@@ -24,7 +25,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr th:each="board: ${boardPages}">
+									<tr th:each="board: ${boardPages}" th:onclick="findBoardById([[${board.id}]])" style="cursor:pointer;">
 										<td th:text="${board.id}"></td>
 										<td th:text="${board.title}"></td>
 										<td th:text="${board.user.name}"></td>

@@ -14,5 +14,5 @@
 	<logger name="org.springframework.boot.web.embedded.tomcat"
 		level="info"></logger> -->
 
-	<logger name="org.springframework.security" level="debug"></logger>
+<!-- 	<logger name="org.springframework.security" level="debug"></logger> -->
 </configuration>
