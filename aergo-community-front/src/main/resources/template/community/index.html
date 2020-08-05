@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
- <th:block th:replace="/layout/header"></th:block>
+<th:block th:replace="/layout/header"></th:block>
 </head>
 <body class="bg-dark">
 	<div id="layoutAuthentication">
@@ -38,17 +38,16 @@
 							</div>
 							<div class="card-footer text-center">
 								<span th:if="${param.error}" class="alert alert-error">
-									Invalid username and password.</span>
-								<span th:if="${param.logout}" class="alert alert-success">
-									You have been logged out.</span>
+									Invalid username and password.</span> <span th:if="${param.logout}"
+									class="alert alert-success"> You have been logged out.</span>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			</main>
+			<th:block th:replace="/layout/footer"></th:block>
 		</div>
-		 <th:block th:replace="/layout/footer"></th:block>
 	</div>
 </body>
 </html>
