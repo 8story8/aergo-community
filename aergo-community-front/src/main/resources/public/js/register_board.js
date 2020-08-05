@@ -7,7 +7,7 @@ function register_board(){
 	    success: function(res){
 	    	console.log(res);
 	    	alert(res.msg);
-	    	location.href="/";
+	    	location.href="/main";
 	    },
 	    error: function(res){
 	    	console.log(res.responseJSON);

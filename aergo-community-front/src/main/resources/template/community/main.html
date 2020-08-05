@@ -24,26 +24,12 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>Tiger Nixon</td>
-										<td>System Architect</td>
-										<td>Edinburgh</td>
+									<tr th:each="board: ${boardPages}">
+										<td th:text="${board.id}"></td>
+										<td th:text="${board.title}"></td>
+										<td th:text="${board.user.name}"></td>
 										<td>61</td>
-										<td>61</td>
-									</tr>
-									<tr>
-										<td>Garrett Winters</td>
-										<td>Accountant</td>
-										<td>Tokyo</td>
-										<td>63</td>
-										<td>61</td>
-									</tr>
-									<tr>
-										<td>Ashton Cox</td>
-										<td>Junior Technical Author</td>
-										<td>San Francisco</td>
-										<td>66</td>
-										<td>61</td>
+										<td th:text="${board.viewCount}"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -54,6 +40,28 @@
 					</div>
 				</div>
 			</div>
+			<nav aria-label="Pagination" th:if="${boardPages.totalPages gt 0}">
+				<ul class="pagination justify-content-center font-weight-bold"
+					th:with="startNumber=${T(Math).floor(boardPages.number/10)}*10+1, 
+endNumber=(${boardPages.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${boardPages.totalPages}">
+					<li class="page-item"><a class="page-link"
+						aria-label="Previous" title="Previous Page" data-toggle="tooltip"
+						href="/main?page=1"><span aria-hidden="true">&laquo;</span></a></li>
+					<li class="page-item"><a class="page-link"
+						th:href="@{/main(page=${boardPages.number})}">&lsaquo;</a></li>
+					<li class="page-item"
+						th:each="page :${#numbers.sequence(startNumber, endNumber)}"
+						th:classappend="(${page} == ${boardPages.number}+1) ? 'active'"><a
+						class="page-link" th:href="@{/main(page=${page})}"
+						th:text="${page}"><span class="sr-only"></span></a></li>
+					<li class="page-item"><a class="page-link"
+						th:href="@{/main(page=${boardPages.number}+2)}">&rsaquo;</a></li>
+					<li class="page-item"><a class="page-link" aria-label="Next"
+						title="Next Page" data-toggle="tooltip"
+						th:href="@{/main(page=${boardPages.totalPages})}"><span
+							aria-hidden="true">&raquo;</span> </a></li>
+				</ul>
+			</nav>
 			</main>
 			<th:block th:replace="/layout/footer"></th:block>
 		</div>

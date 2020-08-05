@@ -12,25 +12,37 @@ import org.springframework.web.servlet.ModelAndView;
 
 import io.blocko.dto.BoardRegistrationDto;
 import io.blocko.form.ResultForm;
+import io.blocko.model.Board;
+import io.blocko.model.SimpleUser;
 import io.blocko.service.BoardService;
+import io.blocko.service.UserService;
 
 @Controller
 @RequestMapping("/board")
 public class BoardController {
-	
+
+	@Autowired
+	private UserService userService;
+
 	@Autowired
 	private BoardService boardService;
-	
+
 	@GetMapping("/register")
 	public ModelAndView register() {
 		final ModelAndView modelAndView = new ModelAndView();
+		final SimpleUser loginUser = userService.getLoginUser().orElse(null);
+		modelAndView.addObject("name", loginUser.getName());
 		modelAndView.setViewName("community/register_board");
 		return modelAndView;
 	}
-	
+
 	@PostMapping("/register")
 	@ResponseBody
-	public ResultForm register(@Valid BoardRegistrationDto registrationDto){
-		return ResultForm.of(registrationDto.getTitle() + " 글이 작성되었습니다.", 200, true);
+	public ResultForm register(@Valid BoardRegistrationDto registrationDto) {
+		final SimpleUser loginUser = userService.getLoginUser().orElse(null);
+
+		final Board board = boardService.register(loginUser, registrationDto);
+
+		return ResultForm.of("", 200, true);
 	}
 }

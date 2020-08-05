@@ -12,7 +12,12 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 @Entity
+@NoArgsConstructor
+@Getter
 public class Board {
 
 	@Id
@@ -20,9 +25,8 @@ public class Board {
 	@GeneratedValue(generator="id_generator")
 	private Long id;
 	
-	@Lob
 	@Column
-	private Blob photo;
+	private String title;
 	
 	@Column
 	private String content;
@@ -39,4 +43,11 @@ public class Board {
 	@ManyToOne
 	@JoinColumn(name = "userId", referencedColumnName = "id")
 	private SimpleUser user;
+	
+	public Board(String title, String content, SimpleUser user) {
+		this.title = title;
+		this.content = content;
+		this.viewCount = 0;
+		this.user = user;
+	}
 }

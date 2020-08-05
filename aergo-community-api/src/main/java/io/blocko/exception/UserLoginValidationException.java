@@ -1,0 +1,15 @@
+package io.blocko.exception;
+
+import org.springframework.security.core.AuthenticationException;
+
+public class UserLoginValidationException extends AuthenticationException {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	public UserLoginValidationException(String msg) {
+		super(msg);
+	}
+}
