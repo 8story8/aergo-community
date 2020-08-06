@@ -8,9 +8,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import io.blocko.auth.UsernamePasswordValidationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -21,12 +18,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 
-	@Bean
-	public UsernamePasswordValidationFilter usernamePasswordValidationFilter() throws Exception {
-		final UsernamePasswordValidationFilter filter = new UsernamePasswordValidationFilter();
-		filter.setAuthenticationManager(authenticationManagerBean());
-		return filter;
-	}
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
@@ -38,7 +29,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 		http.authorizeRequests().antMatchers("/", "/user/register", "/board/register").permitAll().anyRequest()
 				.authenticated();
-		http.addFilterBefore(usernamePasswordValidationFilter(), UsernamePasswordAuthenticationFilter.class);
 		http.formLogin().loginPage("/").loginProcessingUrl("/user/login").defaultSuccessUrl("/main")
 				.usernameParameter("email").passwordParameter("password").and().httpBasic();
 

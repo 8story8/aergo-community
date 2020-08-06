@@ -1,5 +1,6 @@
 package io.blocko.dto;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -22,4 +23,7 @@ public class BoardRegistrationDto {
 	private String content;
 	
 	private MultipartFile file;
+	
+	@Email
+	private String email;
 }

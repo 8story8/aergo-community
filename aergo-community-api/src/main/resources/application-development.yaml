@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 
 aergo:
   endpoint: localhost:7845
@@ -8,6 +8,10 @@ aergo:
   keystore: /Users/8story8/workspace/git/aergo-community/aergo/blockchain/jdbc
   contract:
     address: Amg838Z7SnrfujoB8w3ciJD1v543Xw2xErHajS5wfVRf9fGBNpQZ
+
+file:
+  upload:
+    path: /Users/8story8/Desktop/upload
   
 spring:
   datasource:
@@ -18,13 +22,12 @@ spring:
     hikari: 
       data-source-properties:
         keystore: ${aergo.keystore}
-        # nonce_norefresh: 1
-        # timeout: 1000
+
   jpa:
     show-sql: true
     hibernate:
       database-platform: org.hibernate.dialect.SQLiteDialect
-      ddl-auto: create
+      ddl-auto: create-drop
     properties: 
       hibernate:
         format_sql: true
@@ -34,4 +37,4 @@ spring:
     cache: false
     mode: HTML
     
-    # 47or6RVbxkFbs6vAvWdD7zF5SxpqbkF9R5oKffVP9vKFsf2PwNfNnfTa66jrBFk3wqHHTKpkq
+ # 47or6RVbxkFbs6vAvWdD7zF5SxpqbkF9R5oKffVP9vKFsf2PwNfNnfTa66jrBFk3wqHHTKpkq

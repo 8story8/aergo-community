@@ -2,7 +2,10 @@
 <html>
 <head>
 <th:block th:replace="/layout/header"></th:block>
-<script src="/js/register_board.js"></script>
+<script th:inline="javascript">
+    var email = [[${loginUser.email}]];
+</script>
+<script th:src="@{/js/register_board.js}"></script>
 </head>
 <body>
 	<th:block th:replace="/layout/nav"></th:block>
@@ -25,8 +28,8 @@
 									type="textarea" placeholder="내용을 입력하세요."></textarea>
 							</div>
 							<div class="form-group">
-								<label class="small mb-1">파일</label> <input name="file" type="file"
-									class="btn btn-block" value="파일" />
+								<label class="small mb-1">파일</label> <input name="file"
+									type="file" class="btn btn-block" value="파일" />
 							</div>
 
 							<div class="form-group mt-4 mb-0">

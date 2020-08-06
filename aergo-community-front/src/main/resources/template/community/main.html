@@ -2,7 +2,7 @@
 <html>
 <head>
 <th:block th:replace="/layout/header"></th:block>
-<script src="/js/main.js"></script>
+<script th:src="@{/js/main.js}"></script>
 </head>
 <body>
 	<th:block th:replace="/layout/nav"></th:block>
@@ -29,7 +29,7 @@
 										<td th:text="${board.id}"></td>
 										<td th:text="${board.title}"></td>
 										<td th:text="${board.user.name}"></td>
-										<td>61</td>
+										<td th:text="${board.createdDate}"></td>
 										<td th:text="${board.viewCount}"></td>
 									</tr>
 								</tbody>

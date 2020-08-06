@@ -13,7 +13,6 @@ import lombok.Setter;
 public class UserRegistrationDto {
 
 	@Email
-	@NotBlank
 	private String email;
 	
 	@NotBlank

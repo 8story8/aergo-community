@@ -2,7 +2,10 @@
 <html>
 <head>
 <th:block th:replace="/layout/header"></th:block>
-<script src="/js/board_detail.js"></script>
+<script th:inline="javascript">
+    var email = [[${loginUser.email}]];
+</script>
+<script th:src="@{/js/board_detail.js}"></script>
 </head>
 <body>
 	<th:block th:replace="/layout/nav"></th:block>
@@ -12,15 +15,27 @@
 			<div class="container-fluid">
 				<div class="card mb-4">
 					<div class="card-body">
-
-						<div>제목 이름 작성일 조회수</div>
-						<div>내용</div>
-						<div>파일 다운로드</div>
+						<div class="form-group">
+							<label class="small mb-1">제목</label> <input
+								class="form-control py-4" type="text" th:value="${board.title}"
+								readonly />
+						</div>
+						<div class="form-group">
+							<label class="small mb-1">내용</label>
+							<textarea class="form-control py-4" th:text="${board.content}"
+								type="textarea" readonly></textarea>
+						</div>
+						<div class="form-group">
+							<label class="small mb-1">파일</label> <input
+								class="form-control py-4" type="text"
+								th:value="${board.fileName}" readonly
+								th:onclick="download([[${board.id}]])" style="cursor: pointer;" />
+						</div>
 						<div>
 							<a class="btn btn-warning btn-block" href="/board/update">수정하기</a>
-									<input type="button" class="btn btn-warning btn-block"
-									value="삭제하기" th:onclick="deleteBoardById([[${board.id}]])" />
-							<a class="btn btn-warning btn-block" href="/main">홈으로</a>
+							<input type="button" class="btn btn-warning btn-block"
+								value="삭제하기" th:onclick="deleteBoardById([[${board.id}]])" /> <a
+								class="btn btn-warning btn-block" href="/main">홈으로</a>
 						</div>
 					</div>
 				</div>

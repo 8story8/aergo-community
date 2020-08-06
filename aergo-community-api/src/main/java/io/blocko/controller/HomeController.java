@@ -8,8 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import io.blocko.dto.UserDto;
 import io.blocko.model.Board;
-import io.blocko.model.SimpleUser;
 import io.blocko.service.BoardService;
 import io.blocko.service.UserService;
 
@@ -32,9 +32,9 @@ public class HomeController {
 	@GetMapping("/main")
 	public ModelAndView mainPage(@PageableDefault Pageable pageable) {
 		final ModelAndView modelAndView = new ModelAndView();
-		final SimpleUser loginUser = userService.getLoginUser().orElse(null);
+		final UserDto loginUser = userService.getLoginUser().orElse(null);
 		final Page<Board> boardPages = boardService.findAll(pageable);
-		modelAndView.addObject("name", loginUser.getName());
+		modelAndView.addObject("loginUser", loginUser);
 		modelAndView.addObject("boardPages", boardPages);
 		modelAndView.setViewName("community/main");
 		return modelAndView;

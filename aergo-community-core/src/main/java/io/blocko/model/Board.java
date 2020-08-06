@@ -31,6 +31,9 @@ public class Board extends TimeEntity {
 	private String content;
 	
 	@Column
+	private String fileName;
+	
+	@Column
 	private String filePath;
 	
 	@Column
@@ -40,9 +43,10 @@ public class Board extends TimeEntity {
 	@JoinColumn(name = "userId", referencedColumnName = "id")
 	private SimpleUser user;
 	
-	public Board(String title, String content, String filePath, SimpleUser user) {
+	public Board(String title, String content, String fileName, String filePath, SimpleUser user) {
 		this.title = title;
 		this.content = content;
+		this.fileName = fileName;
 		this.filePath = filePath;
 		this.viewCount = 0;
 		this.user = user;

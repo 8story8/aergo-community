@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import io.blocko.dto.UserDto;
 import io.blocko.dto.UserRegistrationDto;
 import io.blocko.exception.UserDuplicationException;
 import io.blocko.exception.UserPasswordNotEqualsException;
@@ -39,10 +40,12 @@ public class UserService implements UserDetailsService {
 				.orElseThrow(() -> new UsernameNotFoundException(email));
 	}
 
-	public Optional<SimpleUser> getLoginUser() {
+	public Optional<UserDto> getLoginUser() {
 		return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
 				.map(Authentication::getPrincipal).filter(o -> o instanceof UserDetails).map(o -> (UserDetails) o)
-				.map(o -> userRepository.findOneByEmail(o.getUsername()).orElseThrow(() -> new UsernameNotFoundException(o.getUsername())));
+				.map(o -> userRepository.findOneByEmail(o.getUsername())
+						.orElseThrow(() -> new UsernameNotFoundException(o.getUsername())))
+				.map(o -> new UserDto(o.getId(), o.getEmail(), o.getName()));
 	}
 
 	public SimpleUser register(UserRegistrationDto registrationDto) {
@@ -62,5 +65,8 @@ public class UserService implements UserDetailsService {
 		return user;
 	}
 
+	public Optional<SimpleUser> findByEmail(String email) {
+		return userRepository.findOneByEmail(email);
+	}
 
 }

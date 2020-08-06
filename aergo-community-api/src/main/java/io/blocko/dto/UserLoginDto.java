@@ -1,6 +1,7 @@
 package io.blocko.dto;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 import com.sun.istack.NotNull;
 
@@ -19,6 +20,6 @@ public class UserLoginDto {
 	@NotNull
 	private String email;
 	
-	@NotNull
+	@NotBlank
 	private String password;
 }
