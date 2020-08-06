@@ -21,12 +21,7 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
-	
-	@PostMapping("/logout")
-	public String logout() {
-		return "redirect:/";
-	}
-	
+		
 	@GetMapping("/register") 
 	public ModelAndView registrationPage() {
 		final ModelAndView modelAndView = new ModelAndView();

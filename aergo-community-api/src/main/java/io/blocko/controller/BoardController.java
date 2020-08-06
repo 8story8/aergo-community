@@ -36,11 +36,41 @@ public class BoardController {
 	private BoardService boardService;
 
 	@GetMapping("/register")
-	public ModelAndView register() {
+	public ModelAndView registerationPage() {
 		final ModelAndView modelAndView = new ModelAndView();
 		final UserDto loginUser = userService.getLoginUser().orElse(null);
 		modelAndView.addObject("loginUser", loginUser);
 		modelAndView.setViewName("community/register_board");
+		return modelAndView;
+	}
+	
+	@GetMapping("/{id}")
+	public ModelAndView detailPage(@PathVariable("id") Long id) {
+		final ModelAndView modelAndView = new ModelAndView();
+		final UserDto loginUser = userService.getLoginUser().orElse(null);
+		final Board board = boardService.findById(id).orElseThrow(() -> new BoardNotFoundException());
+		boardService.updateViewCount(board);
+		modelAndView.addObject("loginUser", loginUser);
+		modelAndView.addObject("board", board);
+		modelAndView.setViewName("community/board_detail");
+		return modelAndView;
+	}
+	
+	@GetMapping("/download")
+	public void downloadLink(@RequestParam("id") Long id, HttpServletResponse response) {
+		final UserDto loginUser = userService.getLoginUser().orElse(null);
+		final Board board = boardService.findById(id).orElseThrow(() -> new BoardNotFoundException());
+		boardService.download(board, response);
+	}
+	
+	@GetMapping("/update")
+	public ModelAndView updatePage(@RequestParam("id") Long id) {
+		final ModelAndView modelAndView = new ModelAndView();
+		final UserDto loginUser = userService.getLoginUser().orElse(null);
+		final Board board = boardService.findById(id).orElseThrow(() -> new BoardNotFoundException());
+		modelAndView.addObject("loginUser", loginUser);
+		modelAndView.addObject("board", board);
+		modelAndView.setViewName("community/update_board");
 		return modelAndView;
 	}
 
@@ -51,36 +81,6 @@ public class BoardController {
 				.orElseThrow(() -> new UserNotFoundException());
 		final Board board = boardService.register(registrationDto, user);
 		return ResultForm.of(board.getTitle() + " 게시물이 등록되었습니다.", 200, true);
-	}
-
-	@GetMapping("/{id}")
-	public ModelAndView detail(@PathVariable("id") Long id) {
-		final ModelAndView modelAndView = new ModelAndView();
-		final UserDto loginUser = userService.getLoginUser().orElse(null);
-		final Board board = boardService.findById(id).orElseThrow(() -> new BoardNotFoundException());
-		boardService.updateViewCount(board);
-		modelAndView.addObject("loginUser", loginUser);
-		modelAndView.addObject("board", board);
-		modelAndView.setViewName("community/board_detail");
-		return modelAndView;
-	}
-
-	@GetMapping("/download")
-	public void download(@RequestParam("id") Long id, HttpServletResponse response) {
-		final UserDto loginUser = userService.getLoginUser().orElse(null);
-		final Board board = boardService.findById(id).orElseThrow(() -> new BoardNotFoundException());
-		boardService.download(board, response);
-	}
-
-	@GetMapping("/update")
-	public ModelAndView update(@RequestParam("id") Long id) {
-		final ModelAndView modelAndView = new ModelAndView();
-		final UserDto loginUser = userService.getLoginUser().orElse(null);
-		final Board board = boardService.findById(id).orElseThrow(() -> new BoardNotFoundException());
-		modelAndView.addObject("loginUser", loginUser);
-		modelAndView.addObject("board", board);
-		modelAndView.setViewName("community/update_board");
-		return modelAndView;
 	}
 
 	@PostMapping("/update")
@@ -101,5 +101,4 @@ public class BoardController {
 		boardService.delete(board.getId());
 		return ResultForm.of(title + " 게시물이 삭제되었습니다.", 200, true);
 	}
-
 }
