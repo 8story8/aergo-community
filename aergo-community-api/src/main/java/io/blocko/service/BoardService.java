@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import io.blocko.dto.BoardRegistrationDto;
+import io.blocko.dto.BoardUpdateDto;
 import io.blocko.exception.BoardFileUploadException;
 import io.blocko.model.Board;
 import io.blocko.model.SimpleUser;
@@ -54,6 +55,10 @@ public class BoardService {
 			throw new BoardFileUploadException(fileOriginName);
 		}
 		return board;
+	}
+	
+	public Board update(BoardUpdateDto updateDto, SimpleUser user) {
+		return null;
 	}
 
 	public void delete(Long id) {

@@ -31,8 +31,8 @@
 								th:value="${board.fileName}" readonly
 								th:onclick="download([[${board.id}]])" style="cursor: pointer;" />
 						</div>
-						<div>
-							<a class="btn btn-warning btn-block" href="/board/update">수정하기</a>
+						<div class="form-group mt-4 mb-0">
+							<a class="btn btn-warning btn-block" th:href="@{/board/update(id=${board.id})}">수정하기</a>
 							<input type="button" class="btn btn-warning btn-block"
 								value="삭제하기" th:onclick="deleteBoardById([[${board.id}]])" /> <a
 								class="btn btn-warning btn-block" href="/main">홈으로</a>

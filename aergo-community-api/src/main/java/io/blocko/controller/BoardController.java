@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import io.blocko.dto.BoardRegistrationDto;
+import io.blocko.dto.BoardUpdateDto;
 import io.blocko.dto.UserDto;
 import io.blocko.exception.BoardNotFoundException;
 import io.blocko.exception.RestBoardNotFoundException;
@@ -71,10 +72,30 @@ public class BoardController {
 		boardService.download(board, response);
 	}
 
+	@GetMapping("/update")
+	public ModelAndView update(@RequestParam("id") Long id) {
+		final ModelAndView modelAndView = new ModelAndView();
+		final UserDto loginUser = userService.getLoginUser().orElse(null);
+		final Board board = boardService.findById(id).orElseThrow(() -> new BoardNotFoundException());
+		modelAndView.addObject("loginUser", loginUser);
+		modelAndView.addObject("board", board);
+		modelAndView.setViewName("community/update_board");
+		return modelAndView;
+	}
+
+	@PostMapping("/update")
+	@ResponseBody
+	public ResultForm update(@Valid BoardUpdateDto updateDto) {
+		final SimpleUser user = userService.findByEmail(updateDto.getEmail())
+				.orElseThrow(() -> new UserNotFoundException());
+		final Board board = boardService.update(updateDto, user);
+		return ResultForm.of(board.getTitle() + " 게시물이 수정되었습니다.", 200, true);
+	}
+
 	@PostMapping("/delete")
 	@ResponseBody
 	public ResultForm delete(@RequestParam("id") Long id, @RequestParam("email") String email) {
-		final SimpleUser loginUser = userService.findByEmail(email).orElseThrow(() -> new UserNotFoundException());
+		final SimpleUser user = userService.findByEmail(email).orElseThrow(() -> new UserNotFoundException());
 		final Board board = boardService.findById(id).orElseThrow(() -> new RestBoardNotFoundException(id));
 		final String title = board.getTitle();
 		boardService.delete(board.getId());

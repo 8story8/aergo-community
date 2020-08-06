@@ -2,6 +2,10 @@
 <html>
 <head>
 <th:block th:replace="/layout/header"></th:block>
+<script th:inline="javascript">
+	var email = [[${loginUser.email}]];
+	var id = [[${board.id}]];
+</script>
 <script src="/js/update_board.js"></script>
 </head>
 <body>
@@ -12,24 +16,28 @@
 			<div class="container-fluid">
 				<div class="card mb-4">
 					<div class="card-body">
-						<div class="form-group">
-							<label class="small mb-1">제목</label> <input
-								class="form-control py-4" type="text" th:value="${board.title}"
-								readonly />
-						</div>
-						<div class="form-group">
-							<label class="small mb-1">내용</label>
-							<textarea class="form-control py-4" th:text="${board.content}"
-								type="textarea" readonly></textarea>
-						</div>
-						<div class="form-group">
-							<label class="small mb-1">파일</label> <input type="text"
-								th:text="${board.fileName}" />
-						</div>
-						<div>
-							<a class="btn btn-warning btn-block" href="/board/update">수정하기</a>
-							<a class="btn btn-warning btn-block" href="/main">홈으로</a>
-						</div>
+						<form id="update_board_form" th:action="@{/board/update}"
+							th:method="post">
+							<div class="form-group">
+								<label class="small mb-1">제목</label> <input
+									class="form-control py-4" type="text" th:value="${board.title}" />
+							</div>
+							<div class="form-group">
+								<label class="small mb-1">내용</label>
+								<textarea class="form-control py-4" th:text="${board.content}"
+									type="textarea"></textarea>
+							</div>
+							<div class="form-group">
+								<label class="small mb-1">파일</label> <input type="text"
+									th:text="${board.fileName}" />
+							</div>
+							<div class="form-group mt-4 mb-0">
+								<input type="button" class="btn btn-warning btn-block"
+									value="수정하기" onclick="update_board()" /> <a
+									class="btn btn-warning btn-block"
+									th:href="@{/board/{id}(id=${board.id})}">뒤로가기</a>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
