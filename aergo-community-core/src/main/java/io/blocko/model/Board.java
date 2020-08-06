@@ -17,7 +17,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Board {
+public class Board extends TimeEntity {
 
 	@Id
 	@GenericGenerator(name="id_generator", strategy="io.blocko.id.IdGenerator")
@@ -32,12 +32,6 @@ public class Board {
 	
 	@Column
 	private String filePath;
-	
-	@Column
-	private String createdDate;
-	
-	@Column
-	private String updatedDate;
 	
 	@Column
 	private Integer viewCount;
