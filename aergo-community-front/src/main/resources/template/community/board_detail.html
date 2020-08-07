@@ -25,12 +25,14 @@
 							<textarea class="form-control py-4" th:text="${board.content}"
 								type="textarea" readonly></textarea>
 						</div>
+						<th:block th:if="${board.fileName != null}">
 						<div class="form-group">
 							<label class="small mb-1">파일</label> <input
 								class="form-control py-4" type="text"
 								th:value="${board.fileName}" readonly
 								th:onclick="download([[${board.id}]])" style="cursor: pointer;" />
 						</div>
+						</th:block>
 						<div class="form-group mt-4 mb-0">
 							<a class="btn btn-warning btn-block" th:href="@{/board/update(id=${board.id})}">수정하기</a>
 							<input type="button" class="btn btn-warning btn-block"

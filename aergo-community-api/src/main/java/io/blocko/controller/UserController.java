@@ -21,7 +21,7 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
-		
+	
 	@GetMapping("/register") 
 	public ModelAndView registrationPage() {
 		final ModelAndView modelAndView = new ModelAndView();

@@ -28,4 +28,8 @@ public class BoardUpdateDto {
 	
 	@Email
 	private String email;
+	
+	private String hasAlreadyFile;
+	
+	private String uploadStatus;
 }

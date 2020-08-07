@@ -34,33 +34,33 @@ public class UserExceptionHandler {
 			final String code = fieldError.getCode();
 			if (objectName.equals("userRegistrationDto")) {
 				if (code.equals("Email")) {
-					return ResultForm.of("이메일 형식을 확인해주세요.", 101, false);
+					return ResultForm.of("이메일 형식을 확인해주세요.", 500, false);
 				}
 				if (code.equals("NotBlank")) {
-					return ResultForm.of("값을 입력해주세요.", 102, false);
+					return ResultForm.of("값을 입력해주세요.", 501, false);
 				}
 			} else if (objectName.equals("userLoginDto")) {
 				if (code.equals("NotBlank")) {
-					return ResultForm.of("값을 입력해주세요.", 102, false);
+					return ResultForm.of("값을 입력해주세요.", 501, false);
 				}
 			}
 		}
 
-		return ResultForm.of("관리자에게 문의하세요.", 110, false);
+		return ResultForm.of("관리자에게 문의하세요.", 510, false);
 	}
 
 	@ExceptionHandler(UserDuplicationException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
 	private ResultForm handleUserDuplicationException(UserDuplicationException ex) {
-		return ResultForm.of(ex.getMessage(), 104, false);
+		return ResultForm.of(ex.getMessage(), 502, false);
 	}
 
 	@ExceptionHandler(UserPasswordNotEqualsException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
 	private ResultForm handleUserPasswordNotEqualsException(UserPasswordNotEqualsException ex) {
-		return ResultForm.of(ex.getMessage(), 105, false);
+		return ResultForm.of(ex.getMessage(), 503, false);
 	}
 	
 	@ExceptionHandler(UsernameNotFoundException.class)
@@ -73,6 +73,6 @@ public class UserExceptionHandler {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
 	private ResultForm handleUserFoundException(UserNotFoundException ex) {
-		return ResultForm.of(ex.getMessage(), 106, false);
+		return ResultForm.of(ex.getMessage(), 504, false);
 	}
 }

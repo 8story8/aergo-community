@@ -7,7 +7,7 @@ aergo:
   password: jdbc
   keystore: /Users/8story8/workspace/git/aergo-community/aergo/blockchain/jdbc
   contract:
-    address: Amg838Z7SnrfujoB8w3ciJD1v543Xw2xErHajS5wfVRf9fGBNpQZ
+    address: AmhjX3FDmjou7yKPrzHcAiC2bZABDhyPqEfRzebQjR2CsVCqjzJR
 
 file:
   upload:
@@ -27,7 +27,7 @@ spring:
     show-sql: true
     hibernate:
       database-platform: org.hibernate.dialect.SQLiteDialect
-      ddl-auto: create-drop
+      ddl-auto: create
     properties: 
       hibernate:
         format_sql: true

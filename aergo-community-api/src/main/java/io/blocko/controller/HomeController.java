@@ -39,4 +39,11 @@ public class HomeController {
 		modelAndView.setViewName("community/main");
 		return modelAndView;
 	}
+	
+	@GetMapping("/test")
+	public ModelAndView test() {
+		final ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("community/update_board");
+		return modelAndView;
+	}
 }

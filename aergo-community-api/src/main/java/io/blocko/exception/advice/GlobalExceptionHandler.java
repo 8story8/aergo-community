@@ -15,6 +15,6 @@ public class GlobalExceptionHandler {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
 	public ResultForm handleMaxUploadSizeExceededException(MaxUploadSizeExceededException ex) {
-		return ResultForm.of("파일 업로드 최대 용량을 초과했습니다.", 202, false);
+		return ResultForm.of("파일 업로드 최대 용량을 초과했습니다.", 400, false);
 	}
 }

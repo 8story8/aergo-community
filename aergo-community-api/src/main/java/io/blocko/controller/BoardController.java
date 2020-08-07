@@ -98,7 +98,7 @@ public class BoardController {
 		final SimpleUser user = userService.findByEmail(email).orElseThrow(() -> new UserNotFoundException());
 		final Board board = boardService.findById(id).orElseThrow(() -> new RestBoardNotFoundException(id));
 		final String title = board.getTitle();
-		boardService.delete(board.getId());
+		boardService.delete(board);
 		return ResultForm.of(title + " 게시물이 삭제되었습니다.", 200, true);
 	}
 }

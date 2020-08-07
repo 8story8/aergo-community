@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import io.blocko.model.Board;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

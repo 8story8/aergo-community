@@ -20,35 +20,44 @@ import lombok.Setter;
 public class Board extends TimeEntity {
 
 	@Id
-	@GenericGenerator(name="id_generator", strategy="io.blocko.id.IdGenerator")
-	@GeneratedValue(generator="id_generator")
+	@GenericGenerator(name = "id_generator", strategy = "io.blocko.id.IdGenerator")
+	@GeneratedValue(generator = "id_generator")
 	private Long id;
-	
+
 	@Column
 	private String title;
-	
+
 	@Column
 	private String content;
-	
+
 	@Column
 	private String fileName;
-	
+
 	@Column
 	private String filePath;
-	
+
 	@Column
 	private Integer viewCount;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "userId", referencedColumnName = "id")
 	private SimpleUser user;
+
+	// Register, File X
+	public Board(String title, String content, Integer viewCount, SimpleUser user) {
+		this.title = title;
+		this.content = content;
+		this.viewCount = viewCount;
+		this.user = user;
+	}
 	
-	public Board(String title, String content, String fileName, String filePath, SimpleUser user) {
+	// Register, File O
+	public Board(String title, String content, String fileName, String filePath, Integer viewCount, SimpleUser user) {
 		this.title = title;
 		this.content = content;
 		this.fileName = fileName;
 		this.filePath = filePath;
-		this.viewCount = 0;
+		this.viewCount = viewCount;
 		this.user = user;
 	}
 }

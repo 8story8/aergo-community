@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import io.blocko.dto.BoardRegistrationDto;
 import io.blocko.dto.BoardUpdateDto;
 import io.blocko.exception.BoardFileUploadException;
+import io.blocko.exception.RestBoardNotFoundException;
 import io.blocko.model.Board;
 import io.blocko.model.SimpleUser;
 import io.blocko.repository.BoardRepository;
@@ -37,32 +38,116 @@ public class BoardService {
 	private BoardRepository boardRepository;
 
 	public Board register(BoardRegistrationDto registrationDto, SimpleUser user) {
-		Board board = null;
 		final String title = registrationDto.getTitle();
 		final String content = registrationDto.getContent();
 		final MultipartFile file = registrationDto.getFile();
+		return registerInternal(title, content, file, user);
+	}
 
-		final String fileOriginName = file.getOriginalFilename();
+	public Board registerInternal(String title, String content, MultipartFile file, SimpleUser user) {
+		Board board = null;
+		if (!file.isEmpty()) {
+			final String fileOriginName = file.getOriginalFilename();
 
-		final String fileExtName = fileOriginName.substring(fileOriginName.lastIndexOf("."), fileOriginName.length());
+			final String fileExtName = fileOriginName.substring(fileOriginName.lastIndexOf("."),
+					fileOriginName.length());
+			try {
+				final String filePath = uploadPath + "/" + UUID.randomUUID().toString().replace("-", "") + fileExtName;
+				file.transferTo(new File(filePath));
+				board = boardRepository.save(new Board(title, content, fileOriginName, filePath, 0, user));
+			} catch (Exception e) {
+				throw new BoardFileUploadException(fileOriginName);
+			}
+		} else {
+			board = boardRepository.save(new Board(title, content, 0, user));
+		}
 
-		try {
-			final String filePath = uploadPath + "/" + UUID.randomUUID().toString().replace("-", "")
-					+ fileExtName;
-			file.transferTo(new File(filePath));
-			board = boardRepository.save(new Board(title, content, fileOriginName, filePath, user));
-		} catch (Exception e) {
-			throw new BoardFileUploadException(fileOriginName);
+		return board;
+	}
+
+	public Board update(BoardUpdateDto updateDto, SimpleUser user) {
+		Board board = findById(updateDto.getId()).orElseThrow(() -> new RestBoardNotFoundException());
+		final String title = updateDto.getTitle();
+		final String content = updateDto.getContent();
+		final MultipartFile file = updateDto.getFile();
+		
+		// 원래 파일을 가지고 있는 게시물이면
+		if(updateDto.getHasAlreadyFile().equals("true")) {
+			final String updateStatus = updateDto.getUploadStatus();
+			// 초기 상태이면
+			if(updateStatus.equals("Init")) {
+				board.setTitle(title);
+				board.setContent(content);
+				board = boardRepository.save(board);
+			// 파일을 삭제한 상태이면
+			}else if(updateStatus.equals("Delete")) {
+				final File originFile = new File(board.getFilePath());
+				originFile.delete();
+				
+				board.setTitle(title);
+				board.setContent(content);
+				board.setFileName(null);
+				board.setFilePath(null);
+				board = boardRepository.save(board);
+			// 파일을 삭제하고 다른 파일을 업로드한 상태이면
+			}else if(updateStatus.equals("Upload")) {
+				final File originFile = new File(board.getFilePath());
+				originFile.delete();
+				
+				final String fileName = file.getOriginalFilename();
+				final String fileExtName = fileName.substring(fileName.lastIndexOf("."), fileName.length());
+				try {
+					final String filePath = uploadPath + "/" + UUID.randomUUID().toString().replace("-", "") + fileExtName;
+					file.transferTo(new File(filePath));
+
+					board.setTitle(title);
+					board.setContent(content);
+					board.setFileName(fileName);
+					board.setFilePath(filePath);
+					board = boardRepository.save(board);
+				} catch (Exception e) {
+					throw new BoardFileUploadException(fileName);
+				}
+			}else {
+				// Error Handling Required.
+			}
+		// 원래 파일을 가지고 있지 않은 게시물이면
+		}else {
+			final String updateStatus = updateDto.getUploadStatus();
+			// 초기 상태이면
+			if(updateStatus.equals("Init")) {
+				board.setTitle(title);
+				board.setContent(content);
+				board = boardRepository.save(board);
+			// 파일을 업로드한 상태이면
+			}else if(updateStatus.equals("Upload")) {
+				final String fileName = file.getOriginalFilename();
+				final String fileExtName = fileName.substring(fileName.lastIndexOf("."), fileName.length());
+				try {
+					final String filePath = uploadPath + "/" + UUID.randomUUID().toString().replace("-", "") + fileExtName;
+					file.transferTo(new File(filePath));
+
+					board.setTitle(title);
+					board.setContent(content);
+					board.setFileName(fileName);
+					board.setFilePath(filePath);
+					board = boardRepository.save(board);
+				} catch (Exception e) {
+					throw new BoardFileUploadException(fileName);
+				}
+			}else {
+				// Error Handling Required.
+			}
 		}
 		return board;
 	}
-	
-	public Board update(BoardUpdateDto updateDto, SimpleUser user) {
-		return null;
-	}
 
-	public void delete(Long id) {
-		boardRepository.deleteById(id);
+	public void delete(Board board) {
+		if (board.getFilePath() != null) {
+			final File file = new File(board.getFilePath());
+			file.delete();
+		}
+		boardRepository.deleteById(board.getId());
 	}
 
 	public Optional<Board> findById(Long id) {
