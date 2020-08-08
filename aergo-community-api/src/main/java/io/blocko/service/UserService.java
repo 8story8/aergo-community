@@ -3,8 +3,6 @@ package io.blocko.service;
 import java.util.HashSet;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,7 +22,6 @@ import io.blocko.model.SimpleUser;
 import io.blocko.repository.UserRepository;
 
 @Service
-@Transactional
 public class UserService implements UserDetailsService {
 
 	@Autowired

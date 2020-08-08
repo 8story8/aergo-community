@@ -25,11 +25,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable();
+		http.csrf().ignoringAntMatchers("/user/register", "/board/register", "/board/update");
+
 		http.authorizeRequests().antMatchers("/", "/user/register", "/user/login").permitAll().anyRequest()
 				.authenticated();
+
 		http.formLogin().loginPage("/").loginProcessingUrl("/user/login").defaultSuccessUrl("/main")
 				.usernameParameter("email").passwordParameter("password").and().httpBasic();
-
 	}
 }

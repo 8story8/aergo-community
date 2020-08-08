@@ -28,7 +28,6 @@ import io.blocko.model.SimpleUser;
 import io.blocko.repository.BoardRepository;
 
 @Service
-@Transactional
 public class BoardService {
 
 	@Value("${file.upload.path}")
