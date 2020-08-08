@@ -31,36 +31,33 @@
 							<th:block th:if="${board.fileName == null}">
 								<div class="form-group">
 									<label class="small mb-1">파일</label> <input name="file"
-										type="file" class="btn btn-block" value="파일" th:onchange="setUploadStatus(this)"/> <input
+										type="file" class="btn btn-block" value="파일"
+										th:onchange="setUploadStatus(this)" /> <input
 										id="hasAlreadyFile" type="hidden" th:value="false">
-										<input id="uploadStatus" type="hidden"
-											th:value="Init">
 								</div>
 							</th:block>
 							<th:block th:if="${board.fileName != null}">
 								<div class="form-group">
 									<label class="small mb-1">파일</label>
-									<div class="form-inline">
+									<div class="form-inline">									
 										<input id="fileName" class="form-control py-4" type="text"
 											th:value="${board.fileName}"
 											th:onclick="download([[${board.id}]])" readonly
 											style="cursor: pointer;" /> <input id="btnDeleteFile"
-											type="button" class="btn btn-warning" value="파일 삭제"
-											onclick="delete_file()" /> <input id="file" name="file"
-											type="file" class="btn btn-block" value="파일" th:onchange="setUploadStatus(this)"
-											style="display: none;" /> 
-											<input id="hasAlreadyFile" type="hidden"
-											th:value="true">
-											<input id="uploadStatus" type="hidden"
-											th:value="Init">
+											type="button" class="btn btn-lg btn-warning" value="파일 삭제"
+											onclick="delete_file()" style="margin-left:1%;"/> <input id="file" name="file"
+											type="file" class="btn btn-block" value="파일"
+											th:onchange="setUploadStatus(this)" style="display: none;" />
+										<input id="hasAlreadyFile" type="hidden" th:value="true">
 									</div>
 								</div>
 							</th:block>
+							<input id="uploadStatus" type="hidden" th:value="Init">
 							<div class="form-group mt-4 mb-0">
-								<input type="button" class="btn btn-warning btn-block"
+								<input type="button" class="btn btn-warning btn-lg btn-block"
 									value="수정하기" onclick="update_board()" /> <a
-									class="btn btn-warning btn-block"
-									th:href="@{/board/{id}(id=${board.id})}">취소</a>
+									class="btn btn-warning btn-lg btn-block"
+									th:href="@{/board/{id}(id=${board.id},isUpdatedBoard=true)}">취소</a>
 							</div>
 						</form>
 					</div>

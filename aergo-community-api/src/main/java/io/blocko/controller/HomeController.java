@@ -20,7 +20,7 @@ public class HomeController {
 	private UserService userService;
 
 	@Autowired
-	private BoardService boardService;
+	private BoardService boardService; 
 
 	@GetMapping("/")
 	public ModelAndView indexPage() {
@@ -37,13 +37,6 @@ public class HomeController {
 		modelAndView.addObject("loginUser", loginUser);
 		modelAndView.addObject("boardPages", boardPages);
 		modelAndView.setViewName("community/main");
-		return modelAndView;
-	}
-	
-	@GetMapping("/test")
-	public ModelAndView test() {
-		final ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("community/update_board");
 		return modelAndView;
 	}
 }

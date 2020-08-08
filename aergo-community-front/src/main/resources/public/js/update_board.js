@@ -39,7 +39,7 @@ function update_board() {
 		success : function(res) {
 			console.log(res);
 			alert(res.msg);
-			location.href = "/board/" + id;
+			location.href = "/board/" + id + "?isUpdatedBoard=true";
 		},
 		error : function(res) {
 			console.log(res.responseJSON);

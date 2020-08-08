@@ -9,9 +9,11 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @MappedSuperclass
 @Getter
+@Setter
 public abstract class TimeEntity {
 
 	private String createdDate;
@@ -30,7 +32,7 @@ public abstract class TimeEntity {
 		this.updatedDate = getDate();
 	}
 
-	private String getDate() {
+	protected String getDate() {
 		final ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
 		final String date = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(now);
 		return date;

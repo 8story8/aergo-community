@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PostLoad;
+import javax.persistence.PreUpdate;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -39,10 +42,34 @@ public class Board extends TimeEntity {
 	@Column
 	private Integer viewCount;
 
+	@Transient
+	private Integer previousViewCount;
+
 	@ManyToOne
 	@JoinColumn(name = "userId", referencedColumnName = "id")
 	private SimpleUser user;
 
+	@PostLoad
+	public void setPreviousViewCount() {
+		this.previousViewCount = this.viewCount;
+	}
+	
+	@PreUpdate
+	@Override
+	public void setUpdatedDate() {
+		if(!isModifiedViewCount()) {
+			setUpdatedDate(getDate());
+		}
+	}
+	
+	private boolean isModifiedViewCount() {
+		boolean isModified = false;
+		if(this.viewCount != this.previousViewCount) {
+			isModified = true;
+		}
+		return isModified;
+	}
+	
 	// Register, File X
 	public Board(String title, String content, Integer viewCount, SimpleUser user) {
 		this.title = title;

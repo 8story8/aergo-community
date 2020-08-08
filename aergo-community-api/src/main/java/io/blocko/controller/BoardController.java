@@ -43,26 +43,31 @@ public class BoardController {
 		modelAndView.setViewName("community/register_board");
 		return modelAndView;
 	}
-	
+
 	@GetMapping("/{id}")
-	public ModelAndView detailPage(@PathVariable("id") Long id) {
+	public ModelAndView detailPage(@PathVariable("id") Long id,
+			@RequestParam(value = "isUpdatedBoard", defaultValue= "false") String isUpdatedBoard) {
 		final ModelAndView modelAndView = new ModelAndView();
 		final UserDto loginUser = userService.getLoginUser().orElse(null);
 		final Board board = boardService.findById(id).orElseThrow(() -> new BoardNotFoundException());
-		boardService.updateViewCount(board);
+		
+		if(isUpdatedBoard.equals("false")) {
+			boardService.updateViewCount(board);
+		}
+		
 		modelAndView.addObject("loginUser", loginUser);
 		modelAndView.addObject("board", board);
 		modelAndView.setViewName("community/board_detail");
 		return modelAndView;
 	}
-	
+
 	@GetMapping("/download")
 	public void downloadLink(@RequestParam("id") Long id, HttpServletResponse response) {
 		final UserDto loginUser = userService.getLoginUser().orElse(null);
 		final Board board = boardService.findById(id).orElseThrow(() -> new BoardNotFoundException());
 		boardService.download(board, response);
 	}
-	
+
 	@GetMapping("/update")
 	public ModelAndView updatePage(@RequestParam("id") Long id) {
 		final ModelAndView modelAndView = new ModelAndView();
