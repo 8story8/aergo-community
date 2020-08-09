@@ -14,6 +14,7 @@
 		<div id="layoutSidenav_content">
 			<main>
 			<div class="container-fluid">
+				<h5 class="mt-3">게시판 수정</h5>
 				<div class="card mb-4">
 					<div class="card-body">
 						<form id="update_board_form" th:action="@{/board/update}"
@@ -39,16 +40,17 @@
 							<th:block th:if="${board.fileName != null}">
 								<div class="form-group">
 									<label class="small mb-1">파일</label>
-									<div class="form-inline">									
+									<div class="form-inline">
 										<input id="fileName" class="form-control py-4" type="text"
 											th:value="${board.fileName}"
 											th:onclick="download([[${board.id}]])" readonly
 											style="cursor: pointer;" /> <input id="btnDeleteFile"
 											type="button" class="btn btn-lg btn-warning" value="파일 삭제"
-											onclick="delete_file()" style="margin-left:1%;"/> <input id="file" name="file"
-											type="file" class="btn btn-block" value="파일"
-											th:onchange="setUploadStatus(this)" style="display: none;" />
-										<input id="hasAlreadyFile" type="hidden" th:value="true">
+											onclick="delete_file()" style="margin-left: 1%;" /> <input
+											id="file" name="file" type="file" class="btn btn-block"
+											value="파일" th:onchange="setUploadStatus(this)"
+											style="display: none;" /> <input id="hasAlreadyFile"
+											type="hidden" th:value="true">
 									</div>
 								</div>
 							</th:block>

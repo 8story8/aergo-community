@@ -41,7 +41,7 @@ public class DummyConfig {
 	}
 	
 	public void registerDummyBoard(SimpleUser user) {
-		for(int i = 0; i < 125; i++) {
+		for(int i = 0; i < 120; i++) {
 			final BoardRegistrationDto registrationDto = new BoardRegistrationDto();
 			final int index = i+1;
 			registrationDto.setTitle("제목 " + index);
