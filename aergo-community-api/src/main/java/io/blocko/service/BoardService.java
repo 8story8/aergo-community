@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import io.blocko.dto.BoardRegistrationDto;
@@ -28,6 +28,7 @@ import io.blocko.model.SimpleUser;
 import io.blocko.repository.BoardRepository;
 
 @Service
+@Transactional
 public class BoardService {
 
 	@Value("${file.upload.path}")
@@ -55,6 +56,7 @@ public class BoardService {
 				file.transferTo(new File(filePath));
 				board = boardRepository.save(new Board(title, content, fileOriginName, filePath, 0, user));
 			} catch (Exception e) {
+				e.printStackTrace();
 				throw new BoardFileUploadException(fileOriginName);
 			}
 		} else {
@@ -154,7 +156,7 @@ public class BoardService {
 	}
 
 	public Page<Board> findAll(Pageable pageable) {
-		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber()-1);
 		pageable = PageRequest.of(page, 10, Sort.by("id").descending());
 		return boardRepository.findAll(pageable);
 	}

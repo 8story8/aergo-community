@@ -27,7 +27,7 @@ spring:
     show-sql: true
     hibernate:
       database-platform: org.hibernate.dialect.SQLiteDialect
-      ddl-auto: none
+      ddl-auto: create
     properties: 
       hibernate:
         format_sql: true

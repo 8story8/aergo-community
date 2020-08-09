@@ -14,7 +14,8 @@
 				<div class="card mb-4">
 					<div class="card-body">
 						<div class="table-responsive">
-							<table class="table table-bordered table-hover" width="100%" cellspacing="0">
+							<table class="table table-bordered table-hover" width="100%"
+								cellspacing="0">
 								<thead>
 									<tr>
 										<th>번호</th>
@@ -25,7 +26,9 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr th:each="board: ${boardPages}" th:onclick="findBoardById([[${board.id}]])" style="cursor:pointer;">
+									<tr th:each="board: ${boardPages}"
+										th:onclick="findBoardById([[${board.id}]])"
+										style="cursor: pointer;">
 										<td th:text="${board.id}"></td>
 										<td th:text="${board.title}"></td>
 										<td th:text="${board.user.name}"></td>
@@ -36,31 +39,36 @@
 							</table>
 						</div>
 						<div>
-							<a class="btn btn-warning btn-lg btn-block" href="/board/register">글쓰기</a>
-						</div> 
+							<a class="btn btn-warning btn-lg btn-block"
+								href="/board/register">글쓰기</a>
+						</div>
 					</div>
 				</div>
 			</div>
-			<nav aria-label="Pagination" th:if="${boardPages.totalPages gt 0}">
+			<nav aria-label="Pagination">
 				<ul class="pagination justify-content-center font-weight-bold"
-					th:with="startNumber=${T(Math).floor(boardPages.number/10)}*10+1, 
-endNumber=(${boardPages.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${boardPages.totalPages}">
+					th:with="start=${T(Math).floor(boardPages.number/10)*10+1}, 
+end=(${start+9 < boardPages.totalPages ? start+9 : boardPages.totalPages})">
 					<li class="page-item"><a class="page-link"
-						aria-label="Previous" title="Previous Page" data-toggle="tooltip"
-						href="/main?page=1"><span aria-hidden="true">&laquo;</span></a></li>
+						th:href="@{/main(page=1)}"><span>처음</span></a></li>
+
 					<li class="page-item"><a class="page-link"
-						th:href="@{/main(page=${boardPages.number})}">&lsaquo;</a></li>
+						th:href="@{/main(page=${boardPages.number})}"><span>이전</span>
+					</a></li>
+
 					<li class="page-item"
-						th:each="page :${#numbers.sequence(startNumber, endNumber)}"
-						th:classappend="(${page} == ${boardPages.number}+1) ? 'active'"><a
+						th:each="page :${#numbers.sequence(start, end)}"
+						th:classappend="(${page} == ${boardPages.number+1}) ? 'active'">
+						<a th:unless="${page == 0}"
 						class="page-link" th:href="@{/main(page=${page})}"
 						th:text="${page}"><span class="sr-only"></span></a></li>
+
 					<li class="page-item"><a class="page-link"
-						th:href="@{/main(page=${boardPages.number}+2)}">&rsaquo;</a></li>
-					<li class="page-item"><a class="page-link" aria-label="Next"
-						title="Next Page" data-toggle="tooltip"
-						th:href="@{/main(page=${boardPages.totalPages})}"><span
-							aria-hidden="true">&raquo;</span> </a></li>
+						th:href="@{/main(page=${boardPages.number+2})}"><span>다음</span></a>
+					</li>
+
+					<li class="page-item"><a class="page-link"
+						th:href="@{/main(page=${boardPages.totalPages})}"><span>끝</span> </a></li>
 				</ul>
 			</nav>
 			</main>
