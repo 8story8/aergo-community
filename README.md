@@ -6,4 +6,4 @@ Aergo Community 구동 방법
    - password : jdbc
 3. 파일 업로드를 위해 파일을 저장할 디렉터리를 생성합니다.
 4. application.yaml의 file.upload.path에 파일을 저장할 디렉터리 경로를 기입합니다.
-5. ${AERGO_COMMUNITY_API}/ServerLauncher를 실행합니다. 
+5. ${AERGO_COMMUNITY_API}/ServerLauncher를 실행합니다.
