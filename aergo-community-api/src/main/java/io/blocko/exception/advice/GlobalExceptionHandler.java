@@ -3,6 +3,7 @@ package io.blocko.exception.advice;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -11,10 +12,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
+import io.blocko.exception.UserNotFoundException;
 import io.blocko.form.ResultForm;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+	@ExceptionHandler(UsernameNotFoundException.class)
+	@ResponseStatus(HttpStatus.FOUND)
+	private String handleUsernameNotFoundException(UsernameNotFoundException ex) {
+		return "redirect:/";
+	}
+	
+	@ExceptionHandler(UserNotFoundException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseBody
+	private ResultForm handleUserFoundException(UserNotFoundException ex) {
+		return ResultForm.of(ex.getMessage(), 502, false);
+	}
+	
 	@ExceptionHandler(MaxUploadSizeExceededException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody

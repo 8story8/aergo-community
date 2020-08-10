@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import io.blocko.dto.UserDto;
 import io.blocko.dto.UserRegistrationDto;
 import io.blocko.exception.UserDuplicationException;
+import io.blocko.exception.UserNotFoundException;
 import io.blocko.exception.UserPasswordNotEqualsException;
 import io.blocko.model.SimpleUser;
 import io.blocko.repository.UserRepository;
@@ -64,8 +65,11 @@ public class UserService implements UserDetailsService {
 		return user;
 	}
 
+	
 	public Optional<SimpleUser> findByEmail(String email) {
-		return userRepository.findOneByEmail(email);
+		return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
+				.map(Authentication::getPrincipal).filter(o -> o instanceof UserDetails).map(o -> (UserDetails) o)
+				.map(o -> userRepository.findOneByEmail(o.getUsername())
+						.orElseThrow(() -> new UserNotFoundException(o.getUsername())));
 	}
-
 }

@@ -18,7 +18,6 @@ import io.blocko.dto.BoardUpdateDto;
 import io.blocko.dto.UserDto;
 import io.blocko.exception.BoardNotFoundException;
 import io.blocko.exception.RestBoardNotFoundException;
-import io.blocko.exception.UserNotFoundException;
 import io.blocko.form.ResultForm;
 import io.blocko.model.Board;
 import io.blocko.model.SimpleUser;
@@ -82,8 +81,7 @@ public class BoardController {
 	@PostMapping("/register")
 	@ResponseBody
 	public ResultForm register(@Valid BoardRegistrationDto registrationDto) {
-		final SimpleUser user = userService.findByEmail(registrationDto.getEmail())
-				.orElseThrow(() -> new UserNotFoundException());
+		final SimpleUser user = userService.findByEmail(registrationDto.getEmail()).orElse(null);
 		final Board board = boardService.register(registrationDto, user);
 		return ResultForm.of(board.getTitle() + " 게시물이 등록되었습니다.", 200, true);
 	}
@@ -91,8 +89,7 @@ public class BoardController {
 	@PostMapping("/update")
 	@ResponseBody
 	public ResultForm update(@Valid BoardUpdateDto updateDto) {
-		final SimpleUser user = userService.findByEmail(updateDto.getEmail())
-				.orElseThrow(() -> new UserNotFoundException());
+		final SimpleUser user = userService.findByEmail(updateDto.getEmail()).orElse(null);
 		final Board board = boardService.update(updateDto, user);
 		return ResultForm.of(board.getTitle() + " 게시물이 수정되었습니다.", 200, true);
 	}
@@ -100,7 +97,7 @@ public class BoardController {
 	@PostMapping("/delete")
 	@ResponseBody
 	public ResultForm delete(@RequestParam("id") Long id, @RequestParam("email") String email) {
-		final SimpleUser user = userService.findByEmail(email).orElseThrow(() -> new UserNotFoundException());
+		final SimpleUser user = userService.findByEmail(email).orElse(null);
 		final Board board = boardService.findById(id).orElseThrow(() -> new RestBoardNotFoundException(id));
 		final String title = board.getTitle();
 		boardService.delete(board);
