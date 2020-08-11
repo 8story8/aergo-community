@@ -15,9 +15,13 @@ function register_board() {
 			location.href = "/main";
 		},
 		error : function(res) {
-			console.log(res.responseJSON);
-			alert(res.responseJSON.msg);
-
+			var response = res.responseJSON;
+	    	if(response != undefined){
+				var msg = response.msg;
+				alert(msg);
+			}else{
+				alert("관리자에게 문의하세요.");
+			}
 		}
 	});
 }

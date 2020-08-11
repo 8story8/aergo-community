@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(UserNotFoundException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
-	private ResultForm handleUserFoundException(UserNotFoundException ex) {
+	private ResultForm handleUserNotFoundException(UserNotFoundException ex) {
 		return ResultForm.of(ex.getMessage(), 502, false);
 	}
 	

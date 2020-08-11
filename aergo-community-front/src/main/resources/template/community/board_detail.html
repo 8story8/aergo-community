@@ -2,6 +2,8 @@
 <html>
 <head>
 <th:block th:replace="/layout/header"></th:block>
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 <script th:inline="javascript">
     var email = [[${loginUser.email}]];
 </script>
@@ -21,25 +23,40 @@
 								class="form-control py-4" type="text" th:value="${board.title}"
 								readonly />
 						</div>
+						<div class="form-row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="small mb-1">작성자</label> <input
+										class="form-control py-4" type="text"
+										th:value="${board.user.name}" readonly />
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="small mb-1">작성일</label> <input
+										class="form-control py-4" type="text"
+										th:value="${board.createdDate}" readonly />
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="small mb-1">조회수</label> <input
+										class="form-control py-4" type="text"
+										th:value="${board.viewCount}" readonly />
+								</div>
+							</div>
+						</div>
+						<div
+							th:if="${board.updatedDate != null AND loginUser.email eq board.user.email}"
+							class="form-group">
+							<label class="small mb-1">수정일</label> <input
+								class="form-control py-4" type="text"
+								th:value="${board.updatedDate}" readonly />
+						</div>
 						<div class="form-group">
 							<label class="small mb-1">내용</label>
 							<textarea class="form-control py-4" th:text="${board.content}"
 								type="textarea" readonly></textarea>
-						</div>
-						<div class="form-group">
-							<label class="small mb-1">작성자</label> <input
-								class="form-control py-4" type="text"
-								th:value="${board.user.name}" readonly />
-						</div>
-						<div class="form-group">
-							<label class="small mb-1">작성일</label> <input
-								class="form-control py-4" type="text"
-								th:value="${board.createdDate}" readonly />
-						</div>
-						<div th:if="${board.updatedDate != null AND loginUser.email eq board.user.email}" class="form-group">
-							<label class="small mb-1">수정일</label> <input
-								class="form-control py-4" type="text"
-								th:value="${board.updatedDate}" readonly />
 						</div>
 						<th:block th:if="${board.fileName != null}">
 							<div class="form-group">
@@ -49,21 +66,27 @@
 									th:onclick="download([[${board.id}]])" style="cursor: pointer;" />
 							</div>
 						</th:block>
-						<div class="form-group mt-4 mb-0">
-							<th:block th:if="${loginUser.email eq board.user.email}">
+
+						<th:block th:if="${loginUser.email eq board.user.email}">
+							<div class="form-group">
 								<a class="btn btn-warning btn-lg btn-block"
 									th:href="@{/board/update(id=${board.id})}">수정하기</a>
+							</div>
+							<div class="form-group">
 								<input type="button" class="btn btn-warning btn-lg btn-block"
 									value="삭제하기" th:onclick="deleteBoardById([[${board.id}]])" />
-							</th:block>
+							</div>
+						</th:block>
+						<div class="form-group">
 							<a class="btn btn-warning btn-lg btn-block" href="/main">홈으로</a>
 						</div>
 					</div>
 				</div>
 			</div>
-			</main>
-			<th:block th:replace="/layout/footer"></th:block>
 		</div>
+		</main>
+
 	</div>
+	<th:block th:replace="/layout/footer"></th:block>
 </body>
 </html>
