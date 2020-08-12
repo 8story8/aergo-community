@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8080
 
 aergo:
   endpoint: localhost:7845
@@ -38,3 +38,4 @@ spring:
     mode: HTML
     
  # 47or6RVbxkFbs6vAvWdD7zF5SxpqbkF9R5oKffVP9vKFsf2PwNfNnfTa66jrBFk3wqHHTKpkq
+ 

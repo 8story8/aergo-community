@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import io.blocko.dto.BoardRegistrationDto;
 import io.blocko.dto.BoardUpdateDto;
 import io.blocko.exception.BoardFileUploadException;
+import io.blocko.exception.BoardUpdateStatusNotFoundException;
 import io.blocko.exception.RestBoardNotFoundException;
 import io.blocko.model.Board;
 import io.blocko.model.SimpleUser;
@@ -110,7 +111,7 @@ public class BoardService {
 					throw new BoardFileUploadException(fileName);
 				}
 			}else {
-				// Error Handling Required.
+				throw new BoardUpdateStatusNotFoundException();
 			}
 		// 원래 파일을 가지고 있지 않은 게시물이면
 		}else {
@@ -137,7 +138,7 @@ public class BoardService {
 					throw new BoardFileUploadException(fileName);
 				}
 			}else {
-				// Error Handling Required.
+				throw new BoardUpdateStatusNotFoundException();
 			}
 		}
 		return board;
