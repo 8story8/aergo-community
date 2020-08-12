@@ -69,37 +69,41 @@ public class BoardService {
 
 	public Board update(BoardUpdateDto updateDto, SimpleUser user) {
 		Board board = findById(updateDto.getId()).orElseThrow(() -> new RestBoardNotFoundException());
+
 		final String title = updateDto.getTitle();
 		final String content = updateDto.getContent();
 		final MultipartFile file = updateDto.getFile();
-		
+
 		// 원래 파일을 가지고 있는 게시물이면
-		if(updateDto.getHasAlreadyFile().equals("true")) {
+		if (updateDto.getHasAlreadyFile().equals("true")) {
 			final String updateStatus = updateDto.getUploadStatus();
+
 			// 초기 상태이면
-			if(updateStatus.equals("Init")) {
+			if (updateStatus.equals("Init")) {
 				board.setTitle(title);
 				board.setContent(content);
 				board = boardRepository.save(board);
-			// 파일을 삭제한 상태이면
-			}else if(updateStatus.equals("Delete")) {
+				// 파일을 삭제한 상태이면
+			} else if (updateStatus.equals("Delete")) {
 				final File originFile = new File(board.getFilePath());
 				originFile.delete();
-				
+
 				board.setTitle(title);
 				board.setContent(content);
 				board.setFileName(null);
 				board.setFilePath(null);
 				board = boardRepository.save(board);
-			// 파일을 삭제하고 다른 파일을 업로드한 상태이면
-			}else if(updateStatus.equals("Upload")) {
+				// 파일을 삭제하고 다른 파일을 업로드한 상태이면
+			} else if (updateStatus.equals("Upload")) {
 				final File originFile = new File(board.getFilePath());
 				originFile.delete();
-				
+
 				final String fileName = file.getOriginalFilename();
 				final String fileExtName = fileName.substring(fileName.lastIndexOf("."), fileName.length());
+
 				try {
-					final String filePath = uploadPath + "/" + UUID.randomUUID().toString().replace("-", "") + fileExtName;
+					final String filePath = uploadPath + "/" + UUID.randomUUID().toString().replace("-", "")
+							+ fileExtName;
 					file.transferTo(new File(filePath));
 
 					board.setTitle(title);
@@ -110,23 +114,26 @@ public class BoardService {
 				} catch (Exception e) {
 					throw new BoardFileUploadException(fileName);
 				}
-			}else {
+
+			} else {
 				throw new BoardUpdateStatusNotFoundException();
 			}
-		// 원래 파일을 가지고 있지 않은 게시물이면
-		}else {
+
+			// 원래 파일을 가지고 있지 않은 게시물이면
+		} else {
 			final String updateStatus = updateDto.getUploadStatus();
 			// 초기 상태이면
-			if(updateStatus.equals("Init")) {
+			if (updateStatus.equals("Init")) {
 				board.setTitle(title);
 				board.setContent(content);
 				board = boardRepository.save(board);
-			// 파일을 업로드한 상태이면
-			}else if(updateStatus.equals("Upload")) {
+				// 파일을 업로드한 상태이면
+			} else if (updateStatus.equals("Upload")) {
 				final String fileName = file.getOriginalFilename();
 				final String fileExtName = fileName.substring(fileName.lastIndexOf("."), fileName.length());
 				try {
-					final String filePath = uploadPath + "/" + UUID.randomUUID().toString().replace("-", "") + fileExtName;
+					final String filePath = uploadPath + "/" + UUID.randomUUID().toString().replace("-", "")
+							+ fileExtName;
 					file.transferTo(new File(filePath));
 
 					board.setTitle(title);
@@ -137,10 +144,11 @@ public class BoardService {
 				} catch (Exception e) {
 					throw new BoardFileUploadException(fileName);
 				}
-			}else {
+			} else {
 				throw new BoardUpdateStatusNotFoundException();
 			}
 		}
+
 		return board;
 	}
 
@@ -157,7 +165,7 @@ public class BoardService {
 	}
 
 	public Page<Board> findAll(Pageable pageable) {
-		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber()-1);
+		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
 		pageable = PageRequest.of(page, 10, Sort.by("id").descending());
 		return boardRepository.findAll(pageable);
 	}
