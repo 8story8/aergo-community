@@ -25,6 +25,7 @@ import io.blocko.exception.BoardFileUploadException;
 import io.blocko.exception.BoardUpdateStatusNotFoundException;
 import io.blocko.exception.RestBoardNotFoundException;
 import io.blocko.model.Board;
+import io.blocko.model.Pager;
 import io.blocko.model.SimpleUser;
 import io.blocko.repository.BoardRepository;
 
@@ -164,10 +165,20 @@ public class BoardService {
 		return boardRepository.findById(id);
 	}
 
-	public Page<Board> findAll(Pageable pageable) {
-		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
-		pageable = PageRequest.of(page, 10, Sort.by("id").descending());
-		return boardRepository.findAll(pageable);
+	public Pager<Board> findAll(int page) {
+
+		page = page > 0 ? page - 1 : 0;
+		
+		if (page != 0) {
+			long totalPage = boardRepository.count() / Pager.SIZE;
+			if (page > totalPage) {
+				page = (int) totalPage;
+			}
+		}
+
+		final Page<Board> boardPages = boardRepository.findAll(PageRequest.of((int) page, Pager.SIZE, Sort.by("id").descending()));
+		
+		return Pager.of(boardPages.getContent(), boardPages);
 	}
 
 	public void updateViewCount(Board board) {

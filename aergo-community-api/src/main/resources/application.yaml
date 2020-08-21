@@ -14,6 +14,9 @@ file:
     path: /Users/8story8/Desktop/upload
   
 spring:
+  devtools:
+    livereload:
+      enabled: true
   datasource:
     url: jdbc:aergo:${aergo.endpoint}@${aergo.contract.address}
     username: ${aergo.address}
@@ -22,7 +25,6 @@ spring:
     hikari: 
       data-source-properties:
         keystore: ${aergo.keystore}
-
   jpa:
     show-sql: true
     hibernate:
