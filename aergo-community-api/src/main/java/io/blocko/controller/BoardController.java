@@ -82,9 +82,6 @@ public class BoardController {
 	@ResponseBody
 	public ResultForm register(@Valid BoardRegistrationDto registrationDto) {
 		final SimpleUser user = userService.findByEmail(registrationDto.getEmail()).orElse(null);
-		for(int i = 0; i < 150; i++) {
-			boardService.register(registrationDto, user);
-		}
 		final Board board = boardService.register(registrationDto, user);
 		return ResultForm.of(board.getTitle() + " 게시물이 등록되었습니다.", 200, true);
 	}

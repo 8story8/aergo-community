@@ -47,9 +47,9 @@
 			</div>
 			<nav aria-label="Pagination">
 				<ul class="pagination justify-content-center font-weight-bold">
-					<li class="page-item"><a class="page-link" th:href="@{/main}"><span>처음</span></a></li>
-
-					<li class="page-item"><th:block
+					<li th:unless="${boardPages.currentPage == 1}" class="page-item"><a class="page-link" th:href="@{/main}"><span>처음</span></a></li>
+					
+					<li th:unless="${boardPages.prevBlockPage == 0}" class="page-item"><th:block
 							th:if="${boardPages.prevBlockPage == 1}">
 							<a class="page-link" th:href="@{/main}"><span>이전</span> </a>
 						</th:block> <th:block th:unless="${boardPages.prevBlockPage == 1}">
@@ -70,7 +70,7 @@
 						</th:block>
 					</li>
 
-					<li class="page-item"><th:block
+					<li th:unless="${boardPages.nextBlockPage == boardPages.startPage}" class="page-item"><th:block
 							th:if="${boardPages.nextBlockPage == 1}">
 							<a class="page-link" th:href="@{/main}"><span>다음</span></a>
 						</th:block> <th:block th:unless="${boardPages.nextBlockPage == 1}">
@@ -78,7 +78,7 @@
 								th:href="@{/main(page=${boardPages.nextBlockPage})}"><span>다음</span></a>
 						</th:block></li>
 
-					<li class="page-item"><th:block
+					<li th:unless="${boardPages.currentPage == boardPages.totalPages}" class="page-item"><th:block
 							th:if="${boardPages.totalPages == 1}">
 							<a class="page-link" th:href="@{/main}"><span>마지막</span></a>
 						</th:block> <th:block th:unless="${boardPages.totalPages == 1}">

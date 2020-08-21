@@ -25,8 +25,8 @@ import io.blocko.exception.BoardFileUploadException;
 import io.blocko.exception.BoardUpdateStatusNotFoundException;
 import io.blocko.exception.RestBoardNotFoundException;
 import io.blocko.model.Board;
-import io.blocko.model.Pager;
 import io.blocko.model.SimpleUser;
+import io.blocko.page.Pager;
 import io.blocko.repository.BoardRepository;
 
 @Service

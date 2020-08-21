@@ -1,4 +1,4 @@
-package io.blocko.model;
+package io.blocko.page;
 
 import java.util.List;
 
@@ -44,8 +44,8 @@ public class Pager<T> {
 				: pages.getPageable().getPageNumber() + 1;
 		final int startPage = ((currentPage - 1) / SIZE) * SIZE + 1;
 		final int endPage = startPage + SIZE - 1 > totalPages ? totalPages : startPage + SIZE - 1;
-		final int prevBlockPage = startPage - SIZE < 0 ? 1 : startPage - SIZE;
-		final int nextBlockPage = endPage + 1 < totalPages ? endPage + 1 : totalPages;
+		final int prevBlockPage = startPage - SIZE < 0 ? 0 : startPage - SIZE;
+		final int nextBlockPage = endPage + 1 < totalPages ? endPage + 1 : startPage;
 		return new Pager<>(currentPage, startPage, endPage, prevBlockPage, nextBlockPage, totalPages, contents);
 	}
 }

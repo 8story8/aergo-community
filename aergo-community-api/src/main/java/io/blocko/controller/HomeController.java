@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import io.blocko.dto.UserDto;
 import io.blocko.model.Board;
-import io.blocko.model.Pager;
+import io.blocko.page.Pager;
 import io.blocko.service.BoardService;
 import io.blocko.service.UserService;
 
