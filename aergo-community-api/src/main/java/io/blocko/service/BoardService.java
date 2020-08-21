@@ -170,13 +170,13 @@ public class BoardService {
 		page = page > 0 ? page - 1 : 0;
 		
 		if (page != 0) {
-			long totalPage = boardRepository.count() / Pager.SIZE;
+			long totalPage = boardRepository.count() / 10;
 			if (page > totalPage) {
 				page = (int) totalPage;
 			}
 		}
 
-		final Page<Board> boardPages = boardRepository.findAll(PageRequest.of((int) page, Pager.SIZE, Sort.by("id").descending()));
+		final Page<Board> boardPages = boardRepository.findAll(PageRequest.of((int) page, 10, Sort.by("id").descending()));
 		
 		return Pager.of(boardPages.getContent(), boardPages);
 	}

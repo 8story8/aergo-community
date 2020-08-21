@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 @Getter
 public class Pager<T> {
 
-	public static final int SIZE = 10;
-
 	private int totalPages;
 
 	private int currentPage;
@@ -42,9 +40,9 @@ public class Pager<T> {
 		final int totalPages = pages.getTotalPages() == 0 ? 1 : pages.getTotalPages();
 		final int currentPage = pages.getPageable().getPageNumber() + 1 > totalPages ? totalPages
 				: pages.getPageable().getPageNumber() + 1;
-		final int startPage = ((currentPage - 1) / SIZE) * SIZE + 1;
-		final int endPage = startPage + SIZE - 1 > totalPages ? totalPages : startPage + SIZE - 1;
-		final int prevBlockPage = startPage - SIZE < 0 ? 0 : startPage - SIZE;
+		final int startPage = ((currentPage - 1) / pages.getPageable().getPageSize()) * pages.getPageable().getPageSize() + 1;
+		final int endPage = startPage + pages.getPageable().getPageSize() - 1 > totalPages ? totalPages : startPage + pages.getPageable().getPageSize() - 1;
+		final int prevBlockPage = startPage - pages.getPageable().getPageSize() < 0 ? 0 : startPage - pages.getPageable().getPageSize();
 		final int nextBlockPage = endPage + 1 < totalPages ? endPage + 1 : startPage;
 		return new Pager<>(currentPage, startPage, endPage, prevBlockPage, nextBlockPage, totalPages, contents);
 	}
